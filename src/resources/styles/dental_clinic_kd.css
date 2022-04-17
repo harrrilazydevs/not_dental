@@ -1,0 +1,52 @@
+.table_title th {
+  -webkit-text-stroke-width: 1px !important;
+  -webkit-text-stroke-color: #4bb9a9 !important;
+  color: white !important;
+  font-size: 14pt !important;
+}
+.btn_style_1 {
+  background: #80ceb8;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 5px 20px;
+
+}
+
+.side_bar_style_1 {
+  float: left;
+  width: 5%;
+  height: 100vh;
+  border-right: 4px solid #CDCDCD;
+}
+.side_bar_style_1 i {
+    color:#646464;
+}
+
+
+.side_bar_style_1 i:hover{
+    transform:scale(1.1);
+    cursor:pointer;
+    color: #4bb9a9;
+}
+.side_bar_selected{
+    border-right: 2px solid gray;
+}
+
+.flex-container > div {
+  width: 100px;
+  margin: 5px;
+}
+
+.bg-selected{
+  background:#80ceb8c2;
+}
+.overlay-x{
+  background:#80CEB8;
+}
+
+.account_information label{
+  font-size:10pt;
+  font-family: Arial, Helvetica, sans-serif;
+}
