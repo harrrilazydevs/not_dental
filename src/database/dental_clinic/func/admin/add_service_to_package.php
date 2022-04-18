@@ -21,8 +21,6 @@ for ($i=0; $i < count($data); $i++) {
     ),';
 }
 $q = rtrim($q, ", ");
-var_dump($q);
-
 
 $db = new Database();
 $result = $db->update($q);

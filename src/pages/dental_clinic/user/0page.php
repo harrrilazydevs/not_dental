@@ -1,4 +1,4 @@
-<div class="page" id="page_main">
+<div class="page d-none" id="page_main">
     <section>
         <div class="container mt-5">
             <div class="row text-center">
@@ -68,62 +68,17 @@
                     </div>
                 </div>
             </div> -->
+
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
 
+                <div class="carousel-inner" id="landing_pages">
+                    
+                  
+
+
+                    <!-- <div class="carousel-item">
                         <div class="container">
                             <div class="row">
-
-                                <!-- CAROUSEL CARDS -->
-                                <div class="col-lg-4 col-sm-12">
-                                    <div class="card dentalCard text-center">
-                                        <div>
-                                            <img src="src/resources/img/bottle.png" class="card-img-top" style="border-radius: 2%; width: 50% !important; height: 15rem ;">
-                                        </div>
-                                        <div class="card-body">
-                                            <span class="card-title h6 mb-2">Complete Medical Exam</span>
-                                            <br>
-                                            <button data-bs-toggle="modal" data-bs-target="#package" class="mt-2 text-white">Avail</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 col-sm-12">
-                                    <div class="card dentalCard text-center">
-                                        <div>
-                                            <img src="src/resources/img/bottle.png" class="card-img-top" style="border-radius: 2%; width: 50% !important; height: 15rem ;">
-                                        </div>
-                                        <div class="card-body">
-                                            <span class="card-title h6 mb-2">Package 1</span>
-                                            <br>
-                                            <button data-bs-toggle="modal" data-bs-target="#package" class="mt-2 text-white">Avail</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 col-sm-12">
-                                    <div class="card dentalCard text-center">
-                                        <div>
-                                            <img src="src/resources/img/bottle.png" class="card-img-top" style="border-radius: 2%; width: 50% !important; height: 15rem ;">
-                                        </div>
-                                        <div class="card-body">
-                                            <span class="card-title h6 mb-2">Package 1</span>
-                                            <br>
-                                            <button data-bs-toggle="modal" data-bs-target="#package" class="mt-2 text-white">Avail</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="carousel-item">
-                        <div class="container">
-                            <div class="row">
-                                <!-- CAROUSEL CARDS -->
                                 <div class="col-lg-4 col-sm-12">
                                     <div class="card dentalCard text-center">
                                         <div>
@@ -165,7 +120,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
 

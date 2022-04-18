@@ -1,4 +1,4 @@
-<div class="page d-none" id="page_packages" style="background-color: white;">
+<div class="page d-none" id="page_service_sms" style="background-color: white;">
 
     <?php
     include 'admin_sidebar.php';
@@ -9,7 +9,7 @@
         <div class="container" style="color: #7B7A7A; ">
             <div class="row">
                 <div class="col mt-lg-5 mt-xl-5 mt-sm-3">
-                    <span class="h2 ms-lg-5 fw-bold" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif;">PACKAGES</span>
+                    <span class="h2 ms-lg-5 fw-bold" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif;">SERVICES SMS</span>
                 </div>
                 <img class="p-0 mt-lg-5 mt-xl-4 mt-sm-3" src="<?php echo$_SESSION['picture'];?>" style="width: 100px; height: 100px; border-radius: 100%; float: right;">
             </div>
@@ -24,13 +24,12 @@
             </div>
 
             <div class="table-responsive" id="no-more-tables" style="max-height:45vh;border: 3px solid  #7B7A7A; border-radius: 15px; box-shadow: 5px 10px #888888;">
-                <table class="table table-hover" id="tbl_packages">
+                <table class="table table-hover" id="tbl_service_sms">
                     <thead class="text-center">
                         <tr class="table_title">
-                            <th width="20%">PACKAGE NAME</th>
-                            <th width="10%">PRICE</th>
-                            <th>DESCRIPTION</th>
-                            <th width="10%">DETAILS</th>
+                            <th class="text-center" width="20%">Service</th>
+                            <th class="text-center">SMS</th>
+                            <th class="text-center" width="10%"></th>
                         </tr>
                     </thead>
                     <tbody class="text-center" style="overflow-y:auto"></tbody>
@@ -42,7 +41,6 @@
                     <div class="col-12">
                         <button class="text-white" id="btn_admin_add_package"  style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">ADD</button>
                         <button id="btn_admin_edit_package" class="text-white me-lg-2 me-xl-2" style="background:#49A0B3; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">EDIT</button>
-                        <button id="btn_admin_sms_package" class="text-white me-lg-2 me-xl-2" style="background:#49A0B3; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">SMS</button>
                     </div>
                 </div>
             </div>

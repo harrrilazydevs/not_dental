@@ -4,20 +4,21 @@ include '../../db.php';
 
 $q = '
         SELECT 
-                a.id,
-                name,
-                price,
-                status,
-                description,
-                b.sms
+               b.sms,
+               package,
+               a.id
         FROM
-                tbl_packages a 
+                tbl_package_sms a 
         LEFT JOIN
                 tbl_sms_templates b
         ON
-                a.sms = b.id
+                a.sms_id = b.id
+        LEFT JOIN
+                tbl_packages c
+        ON
+                a.package_id = c.id
         ORDER BY 
-                id
+                a.id
         DESC
 ';
 

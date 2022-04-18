@@ -1,4 +1,4 @@
-<div class="d-none page d-none p-4" id="page_createAcc" >
+<div class="d-none page  p-4" id="page_createAcc" >
     <div class="container">
         <div class="row">
             <div class="col-lg-8">

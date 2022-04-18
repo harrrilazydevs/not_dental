@@ -7,13 +7,17 @@ $q = '
                 id,
                 service,
                 price,
-                status
+                status,
+                category
         FROM
-            tbl_services
+                tbl_services
         WHERE
-                category = "'.$_GET['category'].'" 
-                AND 
-                status ="OK"
+                status = "OK"
+        ORDER BY 
+                id 
+        DESC
+        
+      
 ';
 
 $db = new Database();

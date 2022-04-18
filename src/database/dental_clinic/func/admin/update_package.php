@@ -11,7 +11,8 @@ $q = '
         SET
                 price = "'.$_POST['price'].'",
                 name = "'.$_POST['name'].'",
-                status = "'.$_POST['status'].'"
+                status = "'.$_POST['status'].'",
+                description = "'.$_POST['description'].'"
         WHERE   
                 id = "'.$_POST['id'].'"
 ';

@@ -12,14 +12,14 @@
                     </div>
 
                     <form id="upload_form">
-    <input type="text" hidden name="id" id="txt_upload_id">
-    <input type="file" hidden name="file" id="txt_upload_file">
-                    <div class="row text-center mt-4 mb-4">
-                        <div class="col-12">
-                            <button class="text-white me-4" id="btn_upload_document" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">UPLOAD</button>
-                            <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">BACK</button>
+                        <input type="text" hidden name="id" id="txt_upload_id">
+                        <input type="file" hidden name="file" id="txt_upload_file">
+                        <div class="row text-center mt-4 mb-4">
+                            <div class="col-12">
+                                <button class="text-white me-4" id="btn_upload_document" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">UPLOAD</button>
+                                <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">BACK</button>
+                            </div>
                         </div>
-                    </div>
                     </form>
                 </div>
             </div>
@@ -60,7 +60,7 @@
 
                     <div class="row text-center mt-4 mb-4">
                         <div class="col-12">
-                            <button class="text-white me-4" id="btn_edit_service_save"  style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
+                            <button class="text-white me-4" id="btn_edit_service_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
                             <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="row text-center mt-4 mb-4">
                         <div class="col-12">
-                            <button class="text-white me-4" id="btn_add_service_save"  style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
+                            <button class="text-white me-4" id="btn_add_service_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
                             <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
                         </div>
                     </div>
@@ -112,13 +112,68 @@
     </div>
 </div>
 
+<div class="modal fade" id="admin_edit_account" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
+    <div class=" modal-dialog">
+        <div class="modal-content" style="border-radius: 5%;">
+            <div class="modal-body text-black">
+                <div class="container" style="border-radius: 5%; border: solid grey 5px;">
+                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">
+                        Edit Account</h5>
+
+
+                    <div class="row mt-3">
+                        <div class="col-12 text-center">
+                            <img class="icon_btn" title="Change Photo" style="border-radius:50%; height:120px;  width:120px;" id="img_edit_account_picture">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+
+
+                            <form enctype="multipart/form-data" method="post" id="form_admin_update_account">
+
+                                <label class="mt-2">First Name</label>
+                                <input type="text" class="form-control" id="txt_edit_account_f_name">
+
+                                <label class="mt-2">Middle Name</label>
+                                <input type="text" class="form-control" id="txt_edit_account_m_name">
+
+                                <label class="mt-2">Last Name</label>
+                                <input type="text" class="form-control" id="txt_edit_account_l_name">
+
+                                <label class="mt-2">Username</label>
+                                <input type="text" class="form-control" id="txt_edit_account_username">
+
+                                <label class="mt-2">Password</label>
+                                <input type="text" class="form-control" id="txt_edit_account_password">
+
+                                <input type="file" name="picture" id="txt_edit_account_picture" hidden>
+                                <input type="text" name="id" id="txt_edit_account_id" hidden>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <div class="row text-center mt-4 mb-4">
+                        <div class="col-12">
+                            <button class="text-white me-4" id="btn_edit_account_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
+                            <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="admin_edit_package" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
     <div class=" modal-dialog">
         <div class="modal-content" style="border-radius: 5%;">
             <div class="modal-body text-black">
                 <div class="container" style="border-radius: 5%; border: solid grey 5px;">
-                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Edit Service</h5>
+                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Edit Package</h5>
                     <div class="row">
                         <div class="col-12">
                             <label for="">Package Name</label>
@@ -126,6 +181,9 @@
 
                             <label class="mt-2">Price</label>
                             <input type="text" class="form-control" id="txt_edit_package_price">
+
+                            <label class="mt-2">Description</label>
+                            <textarea rows="5" type="text" class="form-control" id="txt_edit_package_description"></textarea>
 
                             <label class="mt-2">Package Availability</label>
                             <select id="txt_edit_package_status" class="form-select">
@@ -137,7 +195,7 @@
 
                     <div class="row text-center mt-4 mb-4">
                         <div class="col-12">
-                            <button class="text-white me-4" id="btn_edit_package_save"  style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
+                            <button class="text-white me-4" id="btn_edit_package_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
                             <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
                         </div>
                     </div>
@@ -147,12 +205,94 @@
     </div>
 </div>
 
+<div class="modal fade" id="admin_edit_sms" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
+    <div class=" modal-dialog">
+        <div class="modal-content" style="border-radius: 5%;">
+            <div class="modal-body text-black">
+                <div class="container" style="border-radius: 5%; border: solid grey 5px;">
+                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Edit SMS Template</h5>
+                    <div class="row">
+                        <div class="col-12">
+
+                            <label class="mt-2">SMS</label>
+                            <textarea rows="20" type="text" class="form-control" id="txt_edit_sms"></textarea>
+                            <input type="hidden" name="" id="txt_edit_sms_id">
+                        </div>
+                    </div>
+
+                    <div class="row text-center mt-4 mb-4">
+                        <div class="col-12">
+                            <button class="text-white me-4" id="btn_edit_sms_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
+                            <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="admin_add_sms" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
+    <div class=" modal-dialog">
+        <div class="modal-content" style="border-radius: 5%;">
+            <div class="modal-body text-black">
+                <div class="container" style="border-radius: 5%; border: solid grey 5px;">
+                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Add SMS Template</h5>
+                    <div class="row">
+                        <div class="col-12">
+
+                            <label class="mt-2">SMS</label>
+                            <textarea rows="20" type="text" class="form-control" id="txt_add_sms"></textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="row text-center mt-4 mb-4">
+                        <div class="col-12">
+                            <button class="text-white me-4" id="btn_add_sms_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
+                            <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  id="admin_reason_of_cancel" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
+    <div class=" modal-dialog">
+        <div class="modal-content" style="border-radius: 5%;">
+            <div class="modal-body text-black">
+                <div class="container" style="border-radius: 5%; border: solid grey 5px;">
+                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Reason of cancellation</h5>
+                    <div class="row">
+                        <div class="col-12">
+
+                            <label class="mt-2">Reason of Cancelled appointment</label>
+                            <textarea rows="20" type="text" class="form-control" id="txt_admin_reason"></textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="row text-center mt-4 mb-4">
+                        <div class="col-12">
+                            <button class="text-white me-4" id="btn_admin_save_reason" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="admin_add_package" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
     <div class=" modal-dialog">
         <div class="modal-content" style="border-radius: 5%;">
             <div class="modal-body text-black">
                 <div class="container" style="border-radius: 5%; border: solid grey 5px;">
-                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Add Service</h5>
+                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Add Package</h5>
                     <div class="row">
                         <div class="col-12">
                             <label for="">Package name</label>
@@ -160,6 +300,9 @@
 
                             <label class="mt-2">Price</label>
                             <input type="text" class="form-control" id="txt_add_package_price">
+
+                            <label class="mt-2">Description</label>
+                            <textarea rows="5" type="text" class="form-control" id="txt_add_package_description"></textarea>
 
                             <label class="mt-2">Status</label>
                             <select id="txt_add_package_status" class="form-select">
@@ -170,7 +313,7 @@
                     </div>
                     <div class="row text-center mt-4 mb-4">
                         <div class="col-12">
-                            <button class="text-white me-4" id="btn_add_package_save"  style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
+                            <button class="text-white me-4" id="btn_add_package_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
                             <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
                         </div>
                     </div>
@@ -203,7 +346,7 @@
                     </div>
                     <div class="row text-center mt-4 mb-4">
                         <div class="col-12">
-                            <button class="text-white me-2" id="btn_add_service_to_package"  style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">ADD</button>
+                            <button class="text-white me-2" id="btn_add_service_to_package" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">ADD</button>
                             <button class="text-white " data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CLOSE</button>
                         </div>
                     </div>
@@ -221,7 +364,7 @@
                     <h5 class="text-center text-dark mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Select a Service</h5>
                     <div class="row">
                         <div class="col-12  d-flex justify-content-around pt-3 p-5 pb-0">
-                        <div class="search text-center" style="box-shadow: 2px 3px #888888; float: right !important;">
+                            <div class="search text-center" style="box-shadow: 2px 3px #888888; float: right !important;">
                                 <span style="font-size: 1rem; padding-left: 1rem; color: #888888;"><i class="fa-solid fa-magnifying-glass"></i></span>
                                 <input id="txt_search_appointment_history" type="search" placeholder="Search..." style="border: none; outline: none; ">
                             </div>
@@ -229,10 +372,10 @@
                     </div>
                     <div class="row">
                         <div class="col-12  p-5 pt-3 pb-2 ">
-                            
+
                             <div class="table-responsive" id="no-more-tables" style="max-height:45vh;border: 3px solid  #7B7A7A; border-radius: 15px; box-shadow: 2px 3px #888888;">
                                 <table class="table table-hover" id="tbl_package_add_services">
-                                    <thead >
+                                    <thead>
                                         <tr class="table_title text-center">
                                             <th width="15%"></th>
 
@@ -246,7 +389,7 @@
                     </div>
                     <div class="row text-center mt-4 mb-4">
                         <div class="col-12">
-                            <button class="text-white me-2" id="btn_add_service_to_package_save"  style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">ADD</button>
+                            <button class="text-white me-2" id="btn_add_service_to_package_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">ADD</button>
                             <button class="text-white " data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CLOSE</button>
                         </div>
                     </div>
@@ -272,13 +415,13 @@
             <div class="modal-body text-black">
                 <div class="container" style="border-radius: 5%; border: solid grey 5px;">
                     <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">
-                    Confirm Appointment Status</h5>
+                        Confirm Appointment Status</h5>
                     <div class="row mt-3 ms-2">
                         <p id="txt_overview_line">Do you want to mark this appointment as "SHOW"?</p>
                     </div>
                     <div class="row text-center mt-2 mb-4">
                         <div class="col-12">
-                            <button class="text-white me-4" id="btn_confirm_appointment_show"  style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CONFIRM</button>
+                            <button class="text-white me-4" id="btn_confirm_appointment_show" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CONFIRM</button>
                             <button class="text-white" data-bs-dismiss="modal" style="background:red; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
                         </div>
                     </div>
@@ -318,79 +461,6 @@
 
 
 
-
-
-<!-- <div class="modal fade" id="md_admin_view_patient" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content acc_info">
-            <div class="modal-body ">
-                <h5 class="h4 fw-bold text-black text-center" style="letter-spacing: 1px; font-family: 'Work Sans', sans-serif;">Patient Information</h5>
-
-                <div class="container" style="background-color: #F9F9F9; border-radius: 20px;">
-                    <div class="row mt-3">
-                        <div class="col-lg-6 mt-4  col-sm-12">
-                            <div class="acc_info">
-                                <label for="lastname">Patient ID:</label>
-                                <input type="text" placeholder="22334" required>
-
-                                <label for="lastname">Last Name:</label>
-                                <input type="text" placeholder="Sebastian" required>
-
-                                <label for="firstname">First Name:</label>
-                                <input type="text" placeholder="Baldong" required>
-
-                                <label for="firstname"><small style="font-size: 13px !important;">Middle Name:</small></label>
-                                <input type="text" placeholder="Ursilang" required>
-
-                                <label>Sex:</label>
-                                <label> <input type="radio" style="display: inline-block !important;"> Male</label>
-                                <label> <input type="radio" style="display: inline-block !important;"> Female</label>
-
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mt-4 col-sm-12">
-
-                            <div class="acc_info">
-                                <label for="Addres">Addres:</label>
-                                <input type="text" placeholder="22334" required>
-
-                                <label for="Street">Street</label>
-                                <input type="text" placeholder="Matabang" required>
-
-                                <label for="Brgy">Brgy:</label>
-                                <input type="text" placeholder="Tibo Brgy" required>
-
-                                <label for="City">City</label>
-                                <input type="text" placeholder="Taguig" required>
-
-
-                                <label for="Province">Province</label>
-                                <input type="text" placeholder="Laguna" required>
-
-                                <label for="Contact">Contact No.</label>
-                                <input type="text" placeholder="0231203012" required>
-
-                            </div>
-                        </div>
-
-
-                        <div class="row text-center mt-4 mb-4">
-                            <div class="col-12">
-                                <button class="text-white me-4" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">DONE</button>
-                                <button class="text-white" data-bs-dismiss="modal" style="background:red; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">DELETE</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
- -->
 
 
 

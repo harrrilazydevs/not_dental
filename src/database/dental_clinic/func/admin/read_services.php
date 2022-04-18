@@ -4,16 +4,22 @@ include '../../db.php';
 
 $q = '
         SELECT 
-                id,
+                a.id,
                 service,
                 price,
                 status,
-                category
+                category,
+                b.sms
         FROM
-                tbl_services
+                tbl_services a
+        LEFT JOIN
+                tbl_sms_templates b
+        ON
+                a.sms = b.id
         ORDER BY 
                 id 
         DESC
+        
       
 ';
 

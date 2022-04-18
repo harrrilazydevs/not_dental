@@ -12,7 +12,10 @@ let pages = {
   admin_appointment: "page_admin_appointment",
   admin_prices: "page_prices",
   admin_packages: "page_packages",
-  admin_sms: "page_sms"
+  admin_sms: "page_sms",
+  admin_admin_accounts: "page_admin_accounts",
+  admin_service_sms: "page_service_sms",
+  admin_package_sms: "page_packages_sms",
 };
 let search_function_config = {
   tbl_service_prices: "txt_admin_search_prices",
@@ -118,6 +121,47 @@ let selected_package = '';
 //     },
 //   });
 // });
+
+
+$('#btn_admin_sms_service').on('click', function () {
+  change_page('admin_service_sms')
+  load_service_sms();
+})
+
+function load_service_sms() {
+  output = '';
+  $.getJSON("src/database/dental_clinic/func/admin/read_service_sms.php", function (data) {
+    $.each(data, function (key, val) {
+      output += 
+      ` <tr attr-id="` + val.id + `">
+          <td class="data-title" data-title="SERVICE"><small class="h6 text-black">`+ val.service + `</small></td>
+          <td class="data-title text-start" data-title="SMS"><small class="h6 text-start">`+ val.sms + `</small></td>
+          <td class="data-title" data-title="SMS"><small class="h6 "></small></td>
+        </tr>`;
+    })
+    $('#tbl_service_sms tbody').empty().append(output);
+  })
+}
+
+$('#btn_admin_sms_package').on('click', function () {
+  change_page('admin_package_sms')
+  load_package_sms();
+})
+
+function load_package_sms() {
+  output = '';
+  $.getJSON("src/database/dental_clinic/func/admin/read_package_sms.php", function (data) {
+    $.each(data, function (key, val) {
+      output += 
+      ` <tr attr-id="` + val.id + `">
+          <td class="data-title" data-title="PACKAGE"><small class="h6 text-black">`+ val.package + `</small></td>
+          <td class="data-title text-start" data-title="SMS"><small class="h6 text-start">`+ val.sms + `</small></td>
+          <td class="data-title" data-title="SMS"><small class="h6 "></small></td>
+        </tr>`;
+    })
+    $('#tbl_package_sms tbody').empty().append(output);
+  })
+}
 
 
 $('.btn_logout').on('click', function () {
@@ -267,6 +311,55 @@ $('#update_acc_picture').on('change', function () {
   });
 })
 
+
+function load_admin_accounts() {
+
+  var table_body = $('#tbl_accounts tbody')
+  var output = "";
+  var count = 1;
+
+  $.getJSON(
+    "src/database/dental_clinic/func/admin/read_admin_accounts.php", function (data) {
+
+      $.each(data, function (key, val) {
+        output += `
+          <tr
+            attr-id = "`+ val.id + `"
+            attr-uid = "`+ val.uid + `"
+            attr-pass = "`+ val.pass + `"
+            attr-picture = "`+ val.picture + `"
+            attr-f-name = "`+ val.f_name + `"
+            attr-m-name = "`+ val.m_name + `"
+            attr-l-name = "`+ val.l_name + `"
+          >
+            <td class="text-center">`+ count + `</td>
+            <td class="text-center">`+ val.f_name + ` ` + val.l_name + `</td>
+            <td class="text-center">`+ val.uid + `</td>
+          </tr>
+        `;
+
+        count = count + 1;
+      })
+
+      table_body.empty().append(output)
+      var table_body_tr = $('#tbl_accounts tbody tr')
+
+      table_body_tr.on("click", function () {
+        table_body_tr.removeClass("bg-selected");
+        d = {
+          id: $(this).attr("attr-id"),
+          uid: $(this).attr("attr-uid"),
+          pass: $(this).attr("attr-pass"),
+          f_name: $(this).attr("attr-f-name"),
+          m_name: $(this).attr("attr-m-name"),
+          l_name: $(this).attr("attr-l-name"),
+          picture: $(this).attr("attr-picture"),
+        };
+        $(this).addClass("bg-selected");
+      });
+    }
+  );
+}
 
 function load_incoming_appointments() {
   $.getJSON(
@@ -770,6 +863,7 @@ function load_registered_patients() {
     }
   );
 }
+
 function write_registered_patients(data) {
   //
   var output = "";
@@ -870,6 +964,7 @@ function load_appointment_history() {
     }
   );
 }
+
 function write_appointment_history(data) {
   //
   var output = "";
@@ -942,10 +1037,12 @@ $(".btn_view_history").on("click", function () {
   load_appointment_history();
   change_page("admin_history");
 });
+
 $(".btn_view_sms").on("click", function () {
   load_sms_template();
   change_page("admin_sms");
 });
+
 $(".btn_view_overview").on("click", function () {
   change_page("admin_overview");
   load_admin_overview();
@@ -961,10 +1058,17 @@ $(".btn_view_admin_appointment").on("click", function () {
   change_page("admin_appointment");
 });
 
-
-
-
 var d = {};
+
+function load_admin_active_services() {
+  $.getJSON(
+    "src/database/dental_clinic/func/admin/read_active_services.php",
+    function (data) {
+      write_admin_services(data);
+    }
+  );
+}
+
 function load_admin_services() {
   $.getJSON(
     "src/database/dental_clinic/func/admin/read_services.php",
@@ -973,6 +1077,7 @@ function load_admin_services() {
     }
   );
 }
+
 function write_admin_services(data) {
   count = 1;
   output = "";
@@ -999,6 +1104,9 @@ function write_admin_services(data) {
       `</small></td>
                   <td class="data-title" data-title="PRICE"><small class="h6 text-black">₱` +
       val.price +
+      `</small></td>
+                  <td class="data-title" data-title="STATUS"><small class="h6 text-black">` +
+      val.status +
       `</small></td>
                 </tr>
             `;
@@ -1027,24 +1135,32 @@ function write_admin_services(data) {
 
   $('.chk_service_add_to_package').on('click', function () {
     var checkbox = $(this);
-    $.get("src/database/dental_clinic/func/admin/read_service_check_if_exists.php", { package_id: $('#btn_add_service_to_package_save').attr('attr-id'), service_id: $(this).attr('attr-id') }, function (data) {
-      if (JSON.parse(data).length > 0) {
-        show_msg("This service already exists ", 2)
-      }
-      else {
-        arr_selected_services_to_add.push(checkbox.attr('attr-id'))
-        $('#' + checkbox.attr('attr-chk')).prop('checked', true);
-        $("#btn_add_service_to_package_save").attr('attr-package-id', checkbox.attr('attr-package-id'))
-      }
-    })
+    if (checkbox.prop('checked')) {
+      $('#' + checkbox.attr('attr-chk')).prop('checked', false);
+      remove_from_array(arr_selected_services_to_add, checkbox.attr('attr-id'))
+    }
+    else {
+      $.get("src/database/dental_clinic/func/admin/read_service_check_if_exists.php", { package_id: $('#btn_add_service_to_package_save').attr('attr-id'), service_id: $(this).attr('attr-id') }, function (data) {
+        if (JSON.parse(data).length > 0) {
+          show_msg("This service already exists ", 2)
+        }
+        else {
+
+          if (!arr_selected_services_to_add.includes(checkbox.attr('attr-id'))) {
+            arr_selected_services_to_add.push(checkbox.attr('attr-id'))
+          }
+          $('#' + checkbox.attr('attr-chk')).prop('checked', true);
+          $("#btn_add_service_to_package_save").attr('attr-package-id', checkbox.attr('attr-package-id'))
+        }
+      })
+    }
+
+
+
+
   })
 
-  $("#btn_add_service_to_package_save").on('click', function () {
-    $.post("src/database/dental_clinic/func/admin/add_service_to_package.php", { ids: arr_selected_services_to_add, package_id: $('#btn_add_service_to_package_save').attr('attr-id') }, function () {
-      show_msg("Services added to the package successfully.", 1);
-      $('#admin_package_add_services').modal('hide')
-    })
-  })
+
 
   $("#tbl_service_prices tbody tr").on("click", function () {
     $("#tbl_service_prices tbody tr").removeClass("bg-selected");
@@ -1059,34 +1175,139 @@ function write_admin_services(data) {
   });
 }
 
+function remove_from_array(array, value) {
+  const index = array.indexOf(value);
+  if (index > -1) {
+    array.splice(index, 1);
+  }
+  return array;
+}
+
 function load_sms_template() {
   $.getJSON("src/database/dental_clinic/func/admin/read_sms_templates.php", function (data) {
     write_sms_template(data)
   })
 }
+
 function write_sms_template(data) {
   var output = '';
   var count = 1;
   $.each(data, function (key, val) {
     output += `
           <tr class="">
-            <td class="data-title" data-title="No" ><div class="px-2 fw-bold">`+count+`</div></td>
-            <td class="data-title" data-title="PATIENT ID"><div class="px-2 text-start">`+val.sms+`</div></td>
+            <td class="data-title" data-title="No" ><div class="px-2 fw-bold">`+ count + `</div></td>
+            <td class="data-title" data-title="PATIENT ID"><div class="px-2 text-start">`+ val.sms + `</div></td>
             <td class="data-title" data-title="APPOINTMENT ID">
               <small class="h6 text-black">
-                <i class="icon_btn fa-solid fa-pen-to-square"></i>
+                <i class="icon_btn fa-solid fa-pen-to-square btn_edit_sms_template" attr-id="`+ val.id + `"></i>
               </small>
             </td>
          
           </tr>
 
     `;
-    count = count+1;
+    count = count + 1;
   })
 
   $('#tbl_sms tbody').empty().append(output)
+  $('.btn_edit_sms_template').on('click', function () {
+
+    $.getJSON("src/database/dental_clinic/func/admin/read_sms_template_by_id.php?id=" + $(this).attr('attr-id'), function (data) {
+      $('#admin_edit_sms').modal('show')
+
+      $('#txt_edit_sms').val('')
+      $('#txt_edit_sms').val(data[0].sms)
+      $('#txt_edit_sms_id').val(data[0].id)
+    })
+
+    $('#btn_edit_sms_save').on('click', function () {
+      $.post("src/database/dental_clinic/func/admin/update_sms.php", {
+        id: $('#txt_edit_sms_id').val(),
+        sms: $('#txt_edit_sms').val()
+      }).done(function () {
+        load_sms_template()
+        $('#admin_edit_sms').modal('hide')
+
+      })
+    })
+  })
+
 }
 
+$('#btn_admin_add_sms').on('click', function () {
+  $('#admin_add_sms').modal('show')
+})
+
+$('#btn_add_sms_save').on('click', function () {
+  $.post("src/database/dental_clinic/func/admin/add_sms_template.php", { sms: $('#txt_add_sms').val() }).done(function () {
+    load_sms_template()
+    $('#admin_add_sms').modal('hide')
+
+  })
+
+})
+
+$('#btn_admin_edit_account').on('click', function () {
+  $('#admin_edit_account').modal('show')
+  $('#txt_edit_account_f_name').val(d.f_name)
+  $('#txt_edit_account_m_name').val(d.m_name)
+  $('#txt_edit_account_l_name').val(d.l_name)
+  $('#txt_edit_account_id').val(d.id)
+  $('#txt_edit_account_username').val(d.uid)
+  $('#txt_edit_account_password').val(d.pass)
+  $('#img_edit_account_picture').attr('src', d.picture)
+
+  $('#img_edit_account_picture').on('click', function () {
+    $('#txt_edit_account_picture').trigger('click')
+  })
+
+  $('#txt_edit_account_picture').on('change', function () {
+    $.ajax({
+      url: 'src/database/dental_clinic/func/admin/update_admin_account_picture.php',
+      type: 'POST',
+      data: new FormData(document.getElementById("form_admin_update_account")),
+      processData: false,
+      contentType: false
+    }).done(function (data) {
+      var data = JSON.parse(data)
+      if (data.status == 1) {
+        $('#img_edit_account_picture').attr('src', data.data)
+        show_msg('Picture updated successfully, Page is reloading.', 1)
+
+        setTimeout(() => {
+          location.reload();
+
+        }, 1500);
+      }
+    }).fail(function () {
+      console.log("An error occurred, the files couldn't be sent!");
+    });
+  })
+
+})
+
+$('#btn_edit_account_save').on('click', function () {
+  if (
+    $('#txt_edit_account_f_name').val()
+    && $('#txt_edit_account_l_name').val()
+    && $('#txt_edit_account_username').val()
+    && $('#txt_edit_account_password').val()
+  ) {
+    $.post("src/database/dental_clinic/func/admin/update_admin_account.php", {
+      uid: $('#txt_edit_account_username').val(),
+      f_name: $('#txt_edit_account_f_name').val(),
+      m_name: $('#txt_edit_account_m_name').val(),
+      l_name: $('#txt_edit_account_l_name').val(),
+      pass: $('#txt_edit_account_password').val(),
+      id: $('#txt_edit_account_id').val()
+    }).done(function () {
+      show_msg("Account updated successfully", 1)
+      load_admin_accounts();
+    })
+  } else {
+    show_msg("Please fill in required fields", 2)
+  }
+})
 
 $("#btn_admin_edit_service").on("click", function () {
   if ($.isEmptyObject(d)) {
@@ -1100,6 +1321,7 @@ $("#btn_admin_edit_service").on("click", function () {
     $("#admin_edit_service").modal("show");
   }
 });
+
 $("#btn_edit_service_save").on("click", function () {
   $("#admin_edit_service").modal("hide");
   data = {
@@ -1118,9 +1340,11 @@ $("#btn_edit_service_save").on("click", function () {
     }
   );
 });
+
 $("#btn_admin_add_service").on("click", function () {
   $("#admin_add_service").modal("show");
 });
+
 $("#btn_add_service_save").on("click", function () {
   $("#admin_add_service").modal("hide");
   data = {
@@ -1140,6 +1364,7 @@ $("#btn_add_service_save").on("click", function () {
 });
 
 var d_string = "";
+
 function load_admin_overview() {
   $.getJSON(
     "src/database/dental_clinic/func/admin/read_overview_appointments.php",
@@ -1148,6 +1373,7 @@ function load_admin_overview() {
     }
   );
 }
+
 function write_admin_overview(data) {
   output = "";
   $.each(data, function (key, val) {
@@ -1196,6 +1422,7 @@ function write_admin_overview(data) {
     d_string = "noshow";
   });
 }
+
 $("#btn_confirm_appointment_show").on("click", function () {
   data = {};
   if (d_string == "noshow") {
@@ -1214,11 +1441,29 @@ $("#btn_confirm_appointment_show").on("click", function () {
     "src/database/dental_clinic/func/admin/update_overview_appointment.php",
     data,
     function () {
-      show_msg("Appointment marked successfully.", 1);
+      // show_msg("Appointment marked successfully.", 1);
+      $('#admin_reason_of_cancel').modal('show')
       load_admin_overview();
     }
   );
 });
+
+$('#btn_admin_save_reason').on('click', function () {
+  data = {
+    id: $(this).attr("attr-id"),
+    status: "for-uploading",
+  };
+
+  $.post(
+    "src/database/dental_clinic/func/admin/update_overview_appointment.php",
+    data,
+    function () {
+      // show_msg("Appointment marked successfully.", 1);
+      $('#admin_reason_of_cancel').modal('show')
+      load_admin_overview();
+    }
+  );
+})
 
 function load_for_uploading() {
   $.getJSON(
@@ -1228,6 +1473,7 @@ function load_for_uploading() {
     }
   );
 }
+
 function write_for_uploading(data) {
   output = "";
   $.each(data, function (key, val) {
@@ -1258,10 +1504,12 @@ function write_for_uploading(data) {
     $("#txt_upload_id").val($(this).attr("attr-id"));
   });
 }
+
 $("#btn_upload_document").on("click", function (e) {
   e.preventDefault();
   $("#txt_upload_file").trigger("click");
 });
+
 $("#txt_upload_file").on("change", function (e) {
   e.preventDefault();
   var form = document.getElementById("upload_form");
@@ -1288,13 +1536,28 @@ function load_packages() {
     }
   );
 }
+
 function write_packages(data) {
   output_2 = "";
+  output_2_temp = "";
   output = "";
+
+  landing_output_header = `<div class="carousel-item">
+                            <div class="container">
+                              item
+                            </div>
+                          </div>`;
+
+  var landing_counter = 0;
+
   $.each(data, function (key, val) {
     output +=
       ` 
                 <tr
+
+                attr-description="` +
+      val.description +
+      `"
                   attr-id="` +
       val.id +
       `"
@@ -1314,6 +1577,10 @@ function write_packages(data) {
                     <td class="data-title" data-title="PRICE"><small class="h6 text-black">₱ ` +
       val.price +
       `</small></td>
+
+      <td class="data-title text-start" data-title="DESCRIPTION"><small class="h6 text-black text-start">` +
+      val.description +
+      `</small></td>
                     <td class="data-title" data-title="DETAILS">
                         <button class="text-white btn_view_package" attr-id="` +
       val.id +
@@ -1322,30 +1589,41 @@ function write_packages(data) {
                 </tr>
     `;
 
-    output_2 += `
-                    <div class="col-lg-4 mb-sm-5">
-                          <div class="card dentalCard" style="height:50vh;">
-                              <div>
-                                  <img src="src/resources/img/bottle.png" class="card-img-top" style="border-radius: 2%; width: 50% !important; height: 15rem !important;">
+    if (landing_counter < 3) {
 
-                              </div>
-                              <div class="card-body">
-                                  <span class="card-title h4 mb-2" style="letter-spacing: 3px;">`+ val.name + `</span>
-                                  <br>
-                                  <button data-bs-toggle="modal"  attr-id="`+ val.id + `" class="mt-2 text-white view_package_landing" style="font-weight:bold; background:#47B0A0; border-radius: 50px; width:120px; border: none; height: 35px;">Avail</button>
-                              </div>
-                          </div>
+      landing_counter = landing_counter + 1;
+
+      output_2_temp += `
+                <div class="col">
+                  <div class="card dentalCard text-center">
+                      <div>
+                          <img src="src/resources/img/bottle.png" class="card-img-top" style="border-radius: 2%; width: 50% !important; height: 15rem ;">
                       </div>
-    
-    `
+                      <div class="card-body">
+                        <span class="card-title h4 mb-2" style="letter-spacing: 3px;">`+ val.name + `</span>
+                          <br>
+                          <button data-bs-toggle="modal" attr-id="`+ val.id + `" data-bs-target="#package" class="mt-2 text-white">Avail</button>
+                      </div>
+                  </div>
+              </div>`
+
+    }
+    else {
+      landing_output_header.replace("item", output_2_temp)
+    }
+
+
 
 
   });
 
 
-  $("#tbl_packages tbody").empty();
-  $("#tbl_packages tbody").append(output);
+  $("#tbl_packages tbody").empty().append(output);
   $('#landing_packages').empty().append(output_2)
+
+
+
+  $("#btn_add_service_to_package_save").unbind('click')
 
   $("#tbl_packages tbody tr").on("click", function () {
     $("#tbl_packages tbody tr").removeClass("bg-selected");
@@ -1354,9 +1632,21 @@ function write_packages(data) {
       name: $(this).attr("attr-name"),
       price: $(this).attr("attr-price"),
       status: $(this).attr("attr-status"),
+      description: $(this).attr("attr-description"),
     };
     $(this).addClass("bg-selected");
   });
+
+
+  $("#btn_add_service_to_package_save").on('click', function () {
+
+    $.post("src/database/dental_clinic/func/admin/add_service_to_package.php", { ids: arr_selected_services_to_add, package_id: $('#btn_add_service_to_package_save').attr('attr-id') }, function () {
+      show_msg("Services added to the package successfully.", 1);
+      $('#admin_package_add_services').modal('hide')
+      arr_selected_services_to_add = [];
+    })
+  })
+
 
   $('.view_package_landing').on('click', function () {
     // data-bs-target="#package"
@@ -1386,6 +1676,7 @@ function write_packages(data) {
 
   });
 }
+
 function load_package_services(package_id) {
   $.getJSON(
     "src/database/dental_clinic/func/admin/read_services_by_package_id.php?id=" +
@@ -1437,22 +1728,22 @@ function write_package_services(data) {
     );
   });
 
-
-
-
 }
+
 $("#btn_add_service_to_package").on("click", function () {
   $("#admin_package_view_services").modal("hide");
   $("#admin_package_add_services").modal("show");
   d_string = $(this).attr('attr-package-id')
-  load_admin_services();
+  load_admin_active_services()
 });
+
 $("#btn_edit_package_save").on("click", function () {
   $("#admin_edit_package").modal("hide");
   data = {
     name: $("#txt_edit_package_name").val(),
     price: $("#txt_edit_package_price").val(),
     status: $("#txt_edit_package_status").val(),
+    description: $("#txt_edit_package_description").val(),
     id: $(this).attr("attr-id"),
   };
   $.post(
@@ -1464,26 +1755,39 @@ $("#btn_edit_package_save").on("click", function () {
     }
   );
 });
+
 $("#btn_admin_add_package").on("click", function () {
   $("#admin_add_package").modal("show");
 });
+
 $("#btn_add_package_save").on("click", function () {
-  if ($("#txt_add_package_name").val() && $("#txt_add_package_p$ce").val())
-    $("#admin_add_service").modal("hide");
-  data = {
-    name: $("#txt_add_package_name").val(),
-    price: $("#txt_add_package_price").val(),
-    status: $("#txt_add_package_status").val(),
-  };
-  $.post(
-    "src/database/dental_clinic/func/admin/add_package.php",
-    data,
-    function () {
-      show_msg("Package added successfully.", 1);
-      load_packages();
-    }
-  );
+  if ($("#txt_add_package_name").val() && $("#txt_add_package_price").val()) {
+    data = {
+      name: $("#txt_add_package_name").val(),
+      price: $("#txt_add_package_price").val(),
+      status: $("#txt_add_package_status").val(),
+      description: $("#txt_add_package_description").val()
+    };
+    $.post(
+      "src/database/dental_clinic/func/admin/add_package.php",
+      data,
+      function () {
+        show_msg("Package added successfully.", 1);
+        load_packages();
+        $("#admin_add_package").modal("hide");
+
+      }
+    );
+  }
+  else {
+    show_msg("Please fill in package details", 2);
+    $("#admin_add_package").modal("hide");
+
+  }
+
+
 });
+
 $("#btn_admin_edit_package").on("click", function () {
   if ($.isEmptyObject(d)) {
     show_msg("No package selected", 2);
@@ -1491,6 +1795,7 @@ $("#btn_admin_edit_package").on("click", function () {
     $("#txt_edit_package_name").val(d.name);
     $("#txt_edit_package_price").val(d.price);
     $("#txt_edit_package_status").val(d.status);
+    $("#txt_edit_package_description").val(d.description);
     $("#btn_edit_package_save").attr("attr-id", d.id);
     $("#admin_edit_package").modal("show");
   }
@@ -1507,6 +1812,10 @@ $(document).ready(function () {
 
   if (!$("#txt_user_access").val()) {
     $("#txt_user_access").attr('value', 'user')
+    load_packages()
+    change_page("main_page");
+  }
+  else {
     load_packages()
     change_page("main_page");
   }
@@ -1818,6 +2127,11 @@ $(".btn_view_dashboard").on("click", function () {
   change_page("dashboard");
 });
 
+$('.btn_view_admin_account').on('click', function () {
+  change_page("admin_admin_accounts")
+  load_admin_accounts();
+})
+
 $(".btn_view_incoming_appointments").on("click", function () {
   load_incoming_appointments();
   change_page("incoming_appointment");
@@ -1844,8 +2158,6 @@ $(".btn_view_admin_appointment").on("click", function () {
 $(".btn_view_registeredPatient").on("click", function () {
   change_page("registeredPatient");
 });
-
-
 
 $('#sel_cancelled_appointments_sort').on('change', function () {
   var selected_data = $(this).val();

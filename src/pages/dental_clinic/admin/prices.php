@@ -15,15 +15,16 @@
             </div>
         </div>
 
-        <div class="container mt-3 pt-5" style="width: 60%;">
+        <div class="container-fluid mt-3 pt-5" style="width: 60%;">
             <div class="row d-flex justify-content-around mt-5 mb-3">
                 <div class="search mb-3 " style="box-shadow: 2px 3px #888888;">
                     <span style="font-size: 1rem; padding-left: 1rem; color: #888888;"><i class="fa-solid fa-magnifying-glass"></i></span>
                     <input type="search" id="txt_admin_search_prices" placeholder="Search..." style="border: none; outline: none; ">
                 </div>
             </div>
-
-            <div class="table-responsive" id="no-more-tables" style="max-height:45vh;border: 3px solid  #7B7A7A; border-radius: 15px; box-shadow: 5px 10px #888888;">
+            <div class="row">
+                <div class="col">
+                <div class="table-responsive" id="no-more-tables" style="max-height:45vh;border: 3px solid  #7B7A7A; border-radius: 15px; box-shadow: 5px 10px #888888;">
                 <table class="table table-hover" id="tbl_service_prices">
                     <thead class="text-center">
                         <tr class="table_title">
@@ -54,12 +55,18 @@
                 </table>
 
             </div>
+                </div>
+            </div>
+
+          
 
             <div class="container mt-xl-4 mt-lg-4  mb-4">
                 <div class="row">
                     <div class="col-12">
                         <button class="text-white" id="btn_admin_add_service"  style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">ADD</button>
                         <button id="btn_admin_edit_service" class="text-white me-lg-2 me-xl-2" style="background:#49A0B3; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">EDIT</button>
+                        <button id="btn_admin_sms_service" class="text-white me-lg-2 me-xl-2" style="background:#49A0B3; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">SMS</button>
+                  
                     </div>
                 </div>
             </div>

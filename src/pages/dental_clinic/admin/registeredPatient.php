@@ -1,4 +1,4 @@
-<div class="page" id="page_registered_patient" style="background-color: white;">
+<div class="page d-none" id="page_registered_patient" style="background-color: white;">
 
     <?php
     include 'admin_sidebar.php';

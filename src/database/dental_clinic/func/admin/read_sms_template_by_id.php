@@ -4,14 +4,12 @@ include '../../db.php';
 
 $q = '
         SELECT 
-                id,
-                name,
-                price
+            id,
+            sms
         FROM
-                tbl_packages
+            tbl_sms_templates 
         WHERE 
-                status ="OK"
-';
+            id ='.$_GET['id'];
 
 $db = new Database();
 $result = $db->read($q);

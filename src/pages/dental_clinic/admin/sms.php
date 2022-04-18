@@ -4,7 +4,7 @@
     ?>
 
 
-    <section class=" min-vh-100" style="background-image: url('src/resources/img/tablet.png')   background-repeat: no-repeat; background-size: 10% 20%; background-position: 100% 100%,  10% 20% ">
+    <section class=" min-vh-100" style="background-image: url('src/resources/img/tablet.png') ;  background-repeat: no-repeat; background-size: 10% 20%; background-position: 100% 100%,  10% 20% ">
         <div class="container" style="color: #7B7A7A; ">
             <div class="row">
                 <div class="col mt-lg-5 mt-xl-5 mt-sm-3">
@@ -37,18 +37,25 @@
                 </div>
             </div>
 
-            <div class="table-responsive" id="no-more-tables" style="border: 3px solid  #7B7A7A; border-radius: 15px; box-shadow: 5px 10px #888888;">
+            <div class="table-responsive" id="no-more-tables" style="max-height:45vh;border: 3px solid  #7B7A7A; border-radius: 15px; box-shadow: 5px 10px #888888;">
                 <table class="table" id="tbl_sms">
                     <thead class="text-center">
                         <tr class="table_title">
                             <th width="5%">No</th>
                             <th width="90%">SMS Template</th>
                             <th></th>
-
                         </tr>
                     </thead>
                     <tbody class="text-center"></tbody>
                 </table>
+            </div>
+
+            <div class="container mt-xl-4 mt-lg-4  mb-4">
+                <div class="row">
+                    <div class="col-12">
+                        <button class="text-white" id="btn_admin_add_sms" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">ADD</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
