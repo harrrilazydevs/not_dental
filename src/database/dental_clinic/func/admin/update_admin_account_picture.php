@@ -40,8 +40,7 @@ if (isset($_FILES['picture'])) {
                 "data" => $dir . $file_name
             ]
         );
-
-    } 
+    }
 }
 
 $_SESSION['picture'] = $dir . $file_name;
@@ -51,9 +50,9 @@ $q = '
         UPDATE  
                 tbl_profile
         SET
-                picture="'. $dir . $file_name.'"
+                picture="' . $dir . $file_name . '"
         WHERE   
-                user_id = "'.$_POST['id'].'"
+                user_id = "' . $_POST['id'] . '"
 ';
 
 $db->update($q);

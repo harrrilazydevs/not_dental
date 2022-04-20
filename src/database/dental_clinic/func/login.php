@@ -4,6 +4,7 @@ session_start();
 //DATABASE FUNCTIONS
 include '../db.php';
 
+
 if(!empty($_POST)){
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -42,4 +43,7 @@ if(!empty($_POST)){
     }
 
 
+}
+else{
+    echo 0;
 }

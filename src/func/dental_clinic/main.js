@@ -34,94 +34,11 @@ const weekday = [
   "Saturday",
 ];
 
+const access_level = $("#txt_user_access").val();
+
 let selected_services = [];
-var access_level = $("#txt_user_access").val();
+let selected_services_list = [];
 let selected_package = '';
-
-// $(".services_btn").on("click", function () {
-//   console.log(selected_services)
-//   var title = "";
-//   title = $(this).attr("attr-name");
-//   title = title.toUpperCase();
-
-//   $.ajax({
-//     type: "GET",
-//     url:
-//       "src/database/dental_clinic/func/user/read_service.php?category=" +
-//       $(this).attr("attr-name"),
-//     success: function (data) {
-//       var temp = Math.round(JSON.parse(data).length / 2);
-//       var count = 0;
-//       var output = '<div class="col-xl-6 col-12  text-muted ">';
-//       $.each(JSON.parse(data), function (key, val) {
-//         if (count == temp) {
-//           output += "</div>";
-//           output += '<div class="col-xl-6 col-12  text-muted ">';
-//         }
-
-//         if (selected_services.indexOf(val.id + "") !== -1) {
-//           output +=
-//             `
-//                       <div class="custom-control custom-checkbox">
-//                           <input type="checkbox" class="custom-control-input chk_service" value="` +
-//             val.id +
-//             `" checked id="srv_` +
-//             count +
-//             `">
-//                           <label class="custom-control-label" for="srv_` +
-//             count +
-//             `" style="font-size:9pt;"> ` +
-//             val.service +
-//             `</label>
-//                       </div>
-//                   `;
-//         } else {
-//           output +=
-//             `
-//                           <div class="custom-control custom-checkbox">
-//                               <input type="checkbox" class="custom-control-input chk_service" value="` +
-//             val.id +
-//             `" id="srv_` +
-//             count +
-//             `">
-//                               <label class="custom-control-label" for="srv_` +
-//             count +
-//             `" style="font-size:9pt;"> ` +
-//             val.service +
-//             `</label>
-//                           </div>
-//                       `;
-//         }
-
-//         count = count + 1;
-//       });
-
-//       output += "</div>";
-
-//       $("#div_md_services").empty();
-//       $("#div_md_services").append(output);
-
-//       $("#md_services").modal("show");
-
-//       $("#txt_md_service_title").text(title);
-
-//       $(".chk_service").unbind("click");
-//       $(".chk_service").on("click", function (key, val) {
-//         var val = $(this).val();
-//         if ($(this).prop("checked")) {
-//           if (!selected_services.includes($(this).val())) {
-//             selected_services.push($(this).val());
-//           }
-//         } else {
-//           selected_services = $.grep(selected_services, function (value) {
-//             return value != val;
-//           });
-//         }
-//       });
-//     },
-//   });
-// });
-
 
 $('#btn_admin_sms_service').on('click', function () {
   change_page('admin_service_sms')
@@ -132,8 +49,8 @@ function load_service_sms() {
   output = '';
   $.getJSON("src/database/dental_clinic/func/admin/read_service_sms.php", function (data) {
     $.each(data, function (key, val) {
-      output += 
-      ` <tr attr-id="` + val.id + `">
+      output +=
+        ` <tr attr-id="` + val.id + `">
           <td class="data-title" data-title="SERVICE"><small class="h6 text-black">`+ val.service + `</small></td>
           <td class="data-title text-start" data-title="SMS"><small class="h6 text-start">`+ val.sms + `</small></td>
           <td class="data-title" data-title="SMS"><small class="h6 "></small></td>
@@ -141,6 +58,24 @@ function load_service_sms() {
     })
     $('#tbl_service_sms tbody').empty().append(output);
   })
+}
+
+function load_selected_services_list() {
+
+  if (selected_services_list.length > 0) {
+    var output = '';
+    $.each(selected_services_list, function (key, val) {
+      output += `
+        <li class="list-group-item">`+ val + `</li>
+      `;
+    })
+    $('#selected_services_div').show();
+    $('#selected_services_list').empty().append(output).show()
+  } else {
+    $('#selected_services_list').empty().hide()
+    $('#selected_services_div').hide();
+  }
+
 }
 
 $('#btn_admin_sms_package').on('click', function () {
@@ -152,8 +87,8 @@ function load_package_sms() {
   output = '';
   $.getJSON("src/database/dental_clinic/func/admin/read_package_sms.php", function (data) {
     $.each(data, function (key, val) {
-      output += 
-      ` <tr attr-id="` + val.id + `">
+      output +=
+        ` <tr attr-id="` + val.id + `">
           <td class="data-title" data-title="PACKAGE"><small class="h6 text-black">`+ val.package + `</small></td>
           <td class="data-title text-start" data-title="SMS"><small class="h6 text-start">`+ val.sms + `</small></td>
           <td class="data-title" data-title="SMS"><small class="h6 "></small></td>
@@ -177,38 +112,69 @@ $('.btn_view_update_account').on('click', function () {
 
 $("#btn_login").on("click", function () {
   if ($('#txt_username').val() && $('#txt_password').val()) {
-    $.ajax({
-      type: "POST",
-      url: "src/database/dental_clinic/func/login.php",
-      data: {
-        username: $("#txt_username").val(),
-        password: $("#txt_password").val(),
-      },
-      success: function (data) {
+    // $.ajax({
+    //   type: "POST",
+    //   url: "src/database/dental_clinic/func/login.php",
+    //   data: {
+    //     username: $("#txt_username").val(),
+    //     password: $("#txt_password").val(),
+    //   },
+    //   success: function (data) {
 
-        if (data == 0) {
-          show_msg("Invalid Username / Password", 2);
-          $('#test_sidebar_user').addClass('d-none')
+    //     if (data == 0) {
+    //       show_msg("Invalid Username / Password", 2);
 
-        } else {
-          var data = JSON.parse(data)
+    //     } else {
+    //       var data = JSON.parse(data)
 
-          if (data[0].user_access == "admin") {
-            location.reload()
-          }
-          else {
-            location.reload()
-            change_page("dashboard");
-          }
-          show_msg("Login Successful", 1);
+    //       if (data[0].user_access == "admin") {
+    //         location.reload()
+    //       }
+    //       else {
+    //         location.reload()
+    //         change_page("dashboard");
+    //       }
+    //       show_msg("Login Successful", 1);
+
+    //       if ($('#txt_user_access').val() == "user") {
+    //         $('#sidebar_user').removeClass('d-none')
+    //       }
+
+    //     }
+    //   },
+    // });
+
+    $.post("src/database/dental_clinic/func/login.php", {
+      username: $("#txt_username").val(),
+      password: $("#txt_password").val(),
+    }).done(function (data) {
+      if (data == 0) {
+        show_msg("Invalid Username / Password", 2);
+
+      } else {
+
+        var data = JSON.parse(data)
+
+        show_msg("Login Successful", 1);
+
+        if (data[0].user_access == "admin") {
+          location.reload()
+        }
+        else {
 
           if ($('#txt_user_access').val() == "user") {
-            $('#test_sidebar_user').removeClass('d-none')
+            $('#sidebar_user').removeClass('d-none')
           }
 
+          change_page("dashboard");
+
+
         }
-      },
-    });
+
+
+
+      }
+    })
   }
   else {
     show_msg("Invalid Username / Password", 2);
@@ -306,7 +272,10 @@ $('#update_acc_picture').on('change', function () {
     cache: false,
     type: 'POST',
     success: function (data) {
-      show_msg("Image uploaded successfully.", 1)
+      show_msg('Picture updated successfully, Page is reloading.', 1)
+      setTimeout(() => {
+        location.reload();
+      }, 1500);
     },
   });
 })
@@ -1827,7 +1796,7 @@ $(document).ready(function () {
   } else {
     if (access_level == "user") {
       load_available_appointments();
-
+      $('#sidebar_user').removeClass('d-none')
       change_page("dashboard");
 
     } else {
@@ -1838,6 +1807,8 @@ $(document).ready(function () {
 
 
 });
+
+selected_services = [];
 
 $(".services_btn").on("click", function () {
   var title = "";
@@ -1864,34 +1835,32 @@ $(".services_btn").on("click", function () {
             output +=
               `
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input chk_service" attr-service-type="single" value="` +
-              val.id +
-              `" checked id="srv_` +
-              count +
-              `">
-                            <label class="custom-control-label" for="srv_` +
-              count +
-              `" style="font-size:9pt;"> ` +
-              val.service +
-              `</label>
+                            <input type="checkbox" class="custom-control-input chk_service" 
+                            attr-service="` + val.service + `" 
+                            attr-service-type="single" 
+                            value="` + val.id + `" 
+                            checked 
+                            id="srv_` + count + `">
+
+                            <label class="custom-control-label" 
+                            for="srv_` + count + `" 
+                            style="font-size:9pt;"> ` + val.service + `</label>
                         </div>
                     `;
           } else {
             output +=
               `
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input chk_service" attr-service-type="single" value="` +
-              val.id +
-              `" id="srv_` +
-              count +
-              `">
-                                <label class="custom-control-label" for="srv_` +
-              count +
-              `" style="font-size:9pt;"> ` +
-              val.service +
-              `</label>
-                            </div>
-                        `;
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input chk_service" 
+                            attr-service-type="single" 
+                            attr-service="` + val.service + `" 
+                            value="` + val.id + `" 
+                            id="srv_` + count + `">
+                            <label class="custom-control-label" 
+                            for="srv_` + count + `" 
+                            style="font-size:9pt;"> ` + val.service + `</label>
+                        </div>
+                    `;
           }
 
           count = count + 1;
@@ -1899,24 +1868,33 @@ $(".services_btn").on("click", function () {
 
         output += "</div>";
 
-        $("#div_md_services").empty();
-        $("#div_md_services").append(output);
+        $("#div_md_services").empty().append(output);
 
         $("#md_services").modal("show");
 
         $("#txt_md_service_title").text(title);
 
-        $(".chk_service").unbind("click");
-        $(".chk_service").on("click", function (key, val) {
+        $(".chk_service").unbind("click").on("click", function (key, val) {
           var val = $(this).val();
+          var service = $(this).attr('attr-service');
           if ($(this).prop("checked")) {
             if (!selected_services.includes($(this).val())) {
               selected_services.push($(this).val());
+              selected_services_list.push($(this).attr('attr-service'));
+              load_selected_services_list();
             }
           } else {
+
             selected_services = $.grep(selected_services, function (value) {
               return value != val;
             });
+
+            selected_services_list = $.grep(selected_services_list, function (value) {
+              return value != service;
+            });
+
+            load_selected_services_list();
+
           }
         });
       },
@@ -1932,39 +1910,35 @@ $(".services_btn").on("click", function () {
           output += "</div>";
           output += '<div class="col-xl-6 col-12  text-muted ">';
         }
-
         if (selected_package == val.id) {
           output +=
             `
-                      <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input chk_service" attr-service-type="package" attr-id="`+ val.id + `" value="` +
-            val.id +
-            `" checked id="srv_` +
-            count +
-            `">
-                          <label class="custom-control-label" for="srv_` +
-            count +
-            `" style="font-size:9pt;"> ` +
-            val.name +
-            `</label>
-                      </div>
-                  `;
+              <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input chk_service" 
+                  attr-service-type="package" 
+                  attr-service="` + val.name + `"
+                  attr-id="`+ val.id + `" 
+                  value="` + val.id + `" 
+                  checked 
+                  id="srv_` + count + `">
+                  <label class="custom-control-label" for="srv_` + count + `" 
+                  style="font-size:9pt;"> ` + val.name + `</label>
+              </div>
+            `;
         } else {
           output +=
             `
-                          <div class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input chk_service" attr-service-type="package" attr-id="`+ val.id + `" value="` +
-            val.id +
-            `" id="srv_` +
-            count +
-            `">
-                              <label class="custom-control-label" for="srv_` +
-            count +
-            `" style="font-size:9pt;"> ` +
-            val.name +
-            `</label>
-                          </div>
-                      `;
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input chk_service" 
+                attr-service-type="package" 
+                attr-service="` + val.name + `"
+                attr-id="`+ val.id + `" 
+                value="` + val.id + `" 
+                id="srv_` + count + `">
+                <label class="custom-control-label" for="srv_` + count + `" 
+                style="font-size:9pt;"> ` + val.name + `</label>
+              </div>
+            `;
         }
 
         count = count + 1;
@@ -1972,13 +1946,11 @@ $(".services_btn").on("click", function () {
 
       output += "</div>";
 
-      $("#div_md_services").empty();
-      $("#div_md_services").append(output);
+      $("#div_md_services").empty().append(output);
       $("#md_services").modal("show");
       $("#txt_md_service_title").text(title);
 
-      $(".chk_service").unbind("click");
-      $(".chk_service").on("click", function (key, val) {
+      $(".chk_service").unbind("click").on("click", function (key, val) {
         selected_services = [];
 
         var val = $(this).val();
@@ -1987,7 +1959,12 @@ $(".services_btn").on("click", function () {
         if ($(this).prop("checked")) {
           $(".chk_service").prop('checked', false)
           $(this).prop("checked", true)
+          selected_services = [];
           selected_package = el.attr('attr-id')
+
+          selected_services_list = [];
+          selected_services_list.push($(this).attr('attr-service'));
+          load_selected_services_list();
 
           $.getJSON("src/database/dental_clinic/func/user/read_package_services.php?id=" + el.attr('attr-id'), function (data) {
             $.each(data, function (key, val) {
@@ -1995,17 +1972,16 @@ $(".services_btn").on("click", function () {
             })
           })
 
+
         } else {
           selected_services = [];
+          selected_services_list = [];
+          load_selected_services_list();
+
         }
-
       });
-
-
-
     })
   }
-
 });
 
 $("#md_make_appointment_book").on("click", function () {

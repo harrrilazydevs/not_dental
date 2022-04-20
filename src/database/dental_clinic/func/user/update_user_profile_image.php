@@ -1,6 +1,8 @@
 <?php
 //DATABASE FUNCTIONS
 include '../../db.php';
+session_start();
+
 
 $db = new Database();
 $id = $_POST['id'];
@@ -23,4 +25,5 @@ $q = '
 
 $db->update($q);
 
+$_SESSION['picture'] = $dir;
 

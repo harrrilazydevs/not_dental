@@ -98,7 +98,7 @@
         <!-------- MAIN GRID --------->
 
         <!-------- NESTED GRID --------->
-        <div style="float:right;background-color: #4DBDAC;">
+        <div class="container" style="float:right;background-color: #4DBDAC; ">
             <?php include 'src/pages/dental_clinic/user/sidebarUser.php'; ?>
         </div>
         <!-------- NESTED GRID --------->
