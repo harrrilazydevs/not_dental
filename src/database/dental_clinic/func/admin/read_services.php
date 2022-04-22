@@ -9,13 +9,17 @@ $q = '
                 price,
                 status,
                 category,
-                b.sms
+                c.sms
         FROM
                 tbl_services a
         LEFT JOIN
-                tbl_sms_templates b
+                tbl_service_sms b
         ON
-                a.sms = b.id
+                a.id = b.service_id
+        LEFT JOIN
+                tbl_sms_templates c
+        ON
+                c.id = b.sms_id
         ORDER BY 
                 id 
         DESC

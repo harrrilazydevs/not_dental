@@ -259,6 +259,38 @@
     </div>
 </div>
 
+<div class="modal fade" id="admin_add_service_sms" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
+    <div class=" modal-dialog">
+        <div class="modal-content" style="border-radius: 5%;">
+            <div class="modal-body text-black">
+                <div class="container" style="border-radius: 5%; border: solid grey 5px;">
+                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Add SMS to Service</h5>
+                    <div class="row">
+                        <div class="col-12">
+
+                            <label class="mt-2">SMS</label>
+                            <select class="form-control" id="sel_add_service_sms">
+                            </select>
+
+                            <label class="mt-2">Service</label>
+                            <select class="form-control" id="sel_add_sms_service">
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="row text-center mt-4 mb-4">
+                        <div class="col-12">
+                            <button class="text-white me-4" id="btn_add_sms_to_service_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
+                            <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  id="admin_reason_of_cancel" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
     <div class=" modal-dialog">
@@ -322,6 +354,8 @@
         </div>
     </div>
 </div>
+
+
 
 <div class="modal fade" id="admin_package_view_services" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
     <div class=" modal-dialog modal-lg">
@@ -407,6 +441,27 @@
 
 
 
+<div class="modal fade" id="admin_delete_service_sms" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
+    <div class=" modal-dialog">
+        <div class="modal-content" style="border-radius: 5%;">
+            <div class="modal-body text-black">
+                <div class="container" style="border-radius: 5%; border: solid grey 5px;">
+                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">
+                        Confirm Delete SMS</h5>
+                    <div class="row mt-3 ms-2">
+                        <p id="txt_overview_line">Do you want to delete this sms?</p>
+                    </div>
+                    <div class="row text-center mt-2 mb-4">
+                        <div class="col-12">
+                            <button class="text-white me-4" id="btn_confirm_delete_service_sms" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CONFIRM</button>
+                            <button class="text-white" data-bs-dismiss="modal" style="background:red; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <div class="modal fade" id="admin_set_appointment" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">

@@ -72,5 +72,3 @@ $q = '
 ';
 
 $result = $db->update($q);
-
-?>

@@ -39,6 +39,7 @@ const access_level = $("#txt_user_access").val();
 let selected_services = [];
 let selected_services_list = [];
 let selected_package = '';
+var selected_id = '';
 
 $('#btn_admin_sms_service').on('click', function () {
   change_page('admin_service_sms')
@@ -50,15 +51,29 @@ function load_service_sms() {
   $.getJSON("src/database/dental_clinic/func/admin/read_service_sms.php", function (data) {
     $.each(data, function (key, val) {
       output +=
-        ` <tr attr-id="` + val.id + `">
+        ` <tr class="" attr-id="` + val.id + `">
           <td class="data-title" data-title="SERVICE"><small class="h6 text-black">`+ val.service + `</small></td>
           <td class="data-title text-start" data-title="SMS"><small class="h6 text-start">`+ val.sms + `</small></td>
           <td class="data-title" data-title="SMS"><small class="h6 "></small></td>
         </tr>`;
     })
     $('#tbl_service_sms tbody').empty().append(output);
+    var table_body_tr = $('#tbl_service_sms tbody tr')
+
+    table_body_tr.removeClass('bg-selected')
+
+    table_body_tr.unbind('click').on('click', function () {
+      $(this).addClass('bg-selected')
+      selected_id = $(this).attr('attr-id')
+    })
   })
 }
+
+$('#btn_admin_add_service_sms').on('click', function () {
+  $('#admin_add_service_sms').modal('show')
+  load_admin_services();
+  load_sms_template();
+})
 
 function load_selected_services_list() {
 
@@ -162,11 +177,10 @@ $("#btn_login").on("click", function () {
         }
         else {
 
-          if ($('#txt_user_access').val() == "user") {
-            $('#sidebar_user').removeClass('d-none')
-          }
-
           change_page("dashboard");
+          $('#sidebar_user').removeClass('d-none')
+          $('#sidebar_name').text(data[0].f_name)
+          $('#sidebar_img').attr('src', data[0].picture)
 
 
         }
@@ -515,9 +529,8 @@ function write_appointments(data) {
     });
   });
 
-  $(".btn_appointments_view").unbind("click");
 
-  $(".btn_appointments_view").on("click", function () {
+  $(".btn_appointments_view").unbind("click").on("click", function () {
     $("#md_view_appointment").modal("show");
     $("#btn_cancel_appointment").addClass("d-none");
     $("#div_view_appointment_buttons").removeClass("text-center");
@@ -1027,6 +1040,35 @@ $(".btn_view_admin_appointment").on("click", function () {
   change_page("admin_appointment");
 });
 
+$('#btn_add_sms_to_service_save').on('click', function () {
+  $.post('src/database/dental_clinic/func/admin/add_sms_to_service.php', {
+    service_id: $('#sel_add_sms_service').val(),
+    sms_id: $('#sel_add_service_sms').val()
+  }).done(function (data) {
+    if (data == 401) {
+      show_msg("This Service SMS exists already!", 2)
+    } else {
+      show_msg("Service SMS saved successfully!", 1)
+      load_service_sms();
+
+    }
+  })
+})
+
+$('#btn_admin_delete_service_sms').on('click', function () {
+  $('#btn_confirm_delete_service_sms').attr('attr-id', selected_id)
+  $('#admin_delete_service_sms').modal('show')
+})
+
+$('#btn_confirm_delete_service_sms').on('click', function () {
+  $.post('src/database/dental_clinic/func/admin/delete_sms_to_service.php', { id: selected_id })
+    .done(function (data) {
+      if (data == 201){
+        show_msg("SMS Deleted successfully.", 1)
+      }
+    })
+})
+
 var d = {};
 
 function load_admin_active_services() {
@@ -1051,42 +1093,45 @@ function write_admin_services(data) {
   count = 1;
   output = "";
   output_2 = "";
+  output_3 = "";
+
   $.each(data, function (key, val) {
     output +=
-      `  <tr attr-id="` +
-      val.id +
-      `" 
-                    attr-service="` +
-      val.service +
-      `" 
-                    attr-price="` +
-      val.price +
-      `"
-                    attr-category="` +
-      val.category +
-      `"
-                    attr-status="` +
-      val.status +
-      `">
-                  <td class="data-title" data-title="SERVICE"><small class="h6 text-black">` +
-      val.service +
-      `</small></td>
-                  <td class="data-title" data-title="PRICE"><small class="h6 text-black">₱` +
-      val.price +
-      `</small></td>
-                  <td class="data-title" data-title="STATUS"><small class="h6 text-black">` +
-      val.status +
-      `</small></td>
-                </tr>
+      ` 
+        <tr 
+          attr-id = "` + val.id + `" 
+          attr-service = "` + val.service + `" 
+          attr-price = "` + val.price + `"
+          attr-category = "` + val.category + `"
+          attr-status = "` + val.status + `">
+
+          <td class="data-title" data-title="SERVICE">
+            <small class="h6 text-black">` + val.service + `</small>
+          </td>
+
+          <td class="data-title" data-title="PRICE">
+            <small class="h6 text-black">₱` + val.price + `</small>
+          </td>
+
+          <td class="data-title" data-title="STATUS">
+            <small class="h6 text-black">` + val.status + `</small>
+          </td>
+        </tr>
             `;
 
     output_2 +=
       `
-          <tr class="chk_service_add_to_package" attr-id="`+ val.id + `" attr-chk="package_service_` + count + `">
+          <tr class="chk_service_add_to_package" 
+            attr-id="`+ val.id + `" 
+            attr-chk="package_service_` + count + `">
             <td>
               <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input chk_service" value="" id="package_service_`+ count + `">
-                  <label class="custom-control-label" style="font-size:15pt;"> </label>
+                  <input type="checkbox" class="custom-control-input chk_service" 
+                    value="" 
+                    id="package_service_`+ count + `">
+                  <label class="custom-control-label" 
+                    style="font-size:15pt;"> 
+                  </label>
               </div>
             </td>
             <td>`+ val.service + `</td>
@@ -1094,12 +1139,19 @@ function write_admin_services(data) {
     
       `;
 
+    output_3 +=
+      `
+      <option value="`+ val.id + `"> ` + val.service + ` </option>
+    
+    `
+
     count = count + 1
   });
 
 
   $("#tbl_service_prices tbody").empty().append(output);
   $("#tbl_package_add_services tbody").empty().append(output_2);
+  $("#sel_add_sms_service").empty().append(output_3);
 
 
   $('.chk_service_add_to_package').on('click', function () {
@@ -1160,6 +1212,7 @@ function load_sms_template() {
 
 function write_sms_template(data) {
   var output = '';
+  output_2 = '';
   var count = 1;
   $.each(data, function (key, val) {
     output += `
@@ -1175,10 +1228,19 @@ function write_sms_template(data) {
           </tr>
 
     `;
+    output_2 +=
+      `
+    <option value="`+ val.id + `">` + val.id + `</option>
+    
+    `;
     count = count + 1;
   })
 
   $('#tbl_sms tbody').empty().append(output)
+  $('#sel_add_service_sms').empty().append(output_2)
+
+
+
   $('.btn_edit_sms_template').on('click', function () {
 
     $.getJSON("src/database/dental_clinic/func/admin/read_sms_template_by_id.php?id=" + $(this).attr('attr-id'), function (data) {

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2022 at 01:48 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.15
+-- Generation Time: Apr 20, 2022 at 04:09 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 7.3.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,6 +35,25 @@ CREATE TABLE `tbl_appointments` (
   `status` varchar(100) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tbl_appointments`
+--
+
+INSERT INTO `tbl_appointments` (`id`, `availability_id`, `user_id`, `date_booked`, `status`) VALUES
+(40, 1, 9, '2022-04-17', 'no-show');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_appointment_cancellation_reason`
+--
+
+CREATE TABLE `tbl_appointment_cancellation_reason` (
+  `id` int(11) NOT NULL,
+  `appointment_id` int(11) NOT NULL,
+  `reason` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +65,13 @@ CREATE TABLE `tbl_appointment_details` (
   `service_id` int(11) NOT NULL,
   `appointment_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_appointment_details`
+--
+
+INSERT INTO `tbl_appointment_details` (`id`, `service_id`, `appointment_id`) VALUES
+(63, 20, 40);
 
 -- --------------------------------------------------------
 
@@ -67,12 +93,12 @@ CREATE TABLE `tbl_available_appointments` (
 --
 
 INSERT INTO `tbl_available_appointments` (`id`, `date`, `time`, `services`, `slot`, `physician`) VALUES
-(1, '2022-04-04', '7:00 - 9:00 AM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
-(2, '2022-04-04', '8:00 - 9:00 AM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
-(3, '2022-04-04', '9:00 - 11:00 AM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
-(4, '2022-04-04', '12:00 - 1:00 PM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
-(5, '2022-04-04', '1:00 - 3:00 PM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
-(6, '2022-04-04', '3:00 - 5:00 PM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad');
+(1, '2022-04-20', '7:00 - 9:00 AM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
+(2, '2022-04-20', '8:00 - 9:00 AM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
+(3, '2022-04-20', '9:00 - 11:00 AM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
+(4, '2022-04-20', '12:00 - 1:00 PM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
+(5, '2022-04-20', '1:00 - 3:00 PM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
+(6, '2022-04-20', '3:00 - 5:00 PM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad');
 
 -- --------------------------------------------------------
 
@@ -96,24 +122,26 @@ CREATE TABLE `tbl_packages` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `price` double NOT NULL,
-  `status` varchar(50) NOT NULL
+  `description` text NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `sms` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_packages`
 --
 
-INSERT INTO `tbl_packages` (`id`, `name`, `price`, `status`) VALUES
-(1, 'Basic 3', 300, 'OK'),
-(2, 'Basic 5', 500, 'OK'),
-(3, 'Basic 5 with Hepa B', 750, 'OK'),
-(4, 'Basic 5 with Drug Test', 800, 'OK'),
-(5, 'Complete Medical Exam', 1050, 'OK'),
-(6, 'Magic 5', 375, 'OK'),
-(7, 'Magic 8', 825, 'OK'),
-(8, 'Magic 10', 1125, 'OK'),
-(9, 'Magic 12', 1500, 'OK'),
-(10, 'Magic Plus', 1950, 'OK');
+INSERT INTO `tbl_packages` (`id`, `name`, `price`, `description`, `status`, `sms`) VALUES
+(1, 'Basic 3', 300, 'BASIC 3 contains CHEST X-RAY, URINE ANALYSIS, AND FECALYSIS. This package includes a projection radiograph of the chest to detect problems affecting the chest, and tests on a stool (feces) sample to diagnose conditions affecting the digestive tract.', 'OK', 0),
+(2, 'Basic 5', 500, 'BASIC 5 contains a CHEST X-RAY, URINE, FECES, CBC, AND PHYSICAL EXAM. This package includes an analysis radiograph of the chest to diagnose conditions affecting the chest, a urine analysis to detect abnormalities indicative of disease or infection, stool (feces) testing to diagnose conditions affecting the digestive tract, blood cell counts to assess overall health.', 'OK', 0),
+(3, 'Basic 5 with Hepa B', 750, '', 'OK', 0),
+(4, 'Basic 5 with Drug Test', 800, '', 'OK', 0),
+(5, 'Complete Medical Exam', 1050, '', 'OK', 0),
+(6, 'Magic 5', 375, '', 'OK', 0),
+(7, 'Magic 8', 825, '', 'OK', 0),
+(8, 'Magic 10', 1125, '', 'OK', 0),
+(9, 'Magic 12', 1500, '', 'OK', 0),
+(10, 'Magic Plus', 1950, '', 'OK', 0);
 
 -- --------------------------------------------------------
 
@@ -187,7 +215,22 @@ INSERT INTO `tbl_package_services` (`id`, `service_id`, `package_id`) VALUES
 (54, 28, 10),
 (55, 29, 10),
 (56, 1, 10),
-(57, 30, 10);
+(57, 30, 10),
+(120, 32, 13),
+(121, 30, 13),
+(123, 29, 13);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_package_sms`
+--
+
+CREATE TABLE `tbl_package_sms` (
+  `id` int(11) NOT NULL,
+  `package_id` int(11) NOT NULL,
+  `sms_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -219,8 +262,8 @@ CREATE TABLE `tbl_profile` (
 --
 
 INSERT INTO `tbl_profile` (`id`, `f_name`, `m_name`, `l_name`, `gender`, `house_no`, `street`, `brgy`, `city`, `province`, `user_id`, `age`, `bdate`, `contact_no`, `email`, `picture`) VALUES
-(10, 'Tiny', '', 'Big Boy', 'male', 'test', 'test', 'test', 'test', 'test', 9, 23, '1998-06-04', 'test', 'test@gmail.com', 'src/uploaded/dental_clinic/profile_pictures/277019539_1060246357895017_4262893776516055332_n.jpg'),
-(11, 'Bigboy', '', 'Tiny', 'male', 'test', 'test', 'test', 'test', 'test', 2, 23, '1998-06-04', 'test', 'test@gmail.com', 'src/uploaded/dental_clinic/profile_pictures/277019539_1060246357895017_4262893776516055332_n.jpg');
+(10, 'Arthur', 'M', 'Nery', '', '2', 'Scorpion', 'Tibay', 'Manila', 'Mindanao', 9, 23, '1998-06-04', '09055297208', 'kdlanguido@gmail.com', 'src/uploaded/dental_clinic/profile_pictures/263022592_607624670356476_6136983158725394169_n.jpg'),
+(11, 'Jasmyn Icee', 'N/A', 'Languido', 'female', '24', 'Bonifacio High Street', 'Fort Bonifacio', 'Taguig', 'Metro Manila', 2, 23, '1998-06-04', '09055297208', 'kdlanguido@gmail.com', 'src/uploaded/dental_clinic/profile_pictures/275485425_1642370326109169_4198055818920009956_n.jpg');
 
 -- --------------------------------------------------------
 
@@ -276,6 +319,46 @@ INSERT INTO `tbl_services` (`id`, `service`, `status`, `category`, `price`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_service_sms`
+--
+
+CREATE TABLE `tbl_service_sms` (
+  `id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `sms_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_service_sms`
+--
+
+INSERT INTO `tbl_service_sms` (`id`, `service_id`, `sms_id`) VALUES
+(1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_sms_templates`
+--
+
+CREATE TABLE `tbl_sms_templates` (
+  `id` int(11) NOT NULL,
+  `sms` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_sms_templates`
+--
+
+INSERT INTO `tbl_sms_templates` (`id`, `sms`) VALUES
+(1, 'Hi! This is Cheronzelle Clinic please be informed that your appointment date is on <span style=\"color:red\">(Appointment Date and Time)</span>.<br><br><b> Please bring the ff:</b><br>\n<br>\nPea-sized stool (dumi)<br>\nValid ID<br>\n1x1 picture <br>\n<br>\n<span style=\"color:red\">(package/service amount)</span> and extra money.<br> Thank you!\n'),
+(2, 'Hi! This is Cheronzelle Clinic please be informed that your appointment date is on <span style=\"color:red\">(Appointment Date and Time)</span>.<br><br><b> Please bring the ff:</b><br>\n<br>\nValid ID<br>\n1x1 picture <br>\n<br>\n<span style=\"color:red\">(package/service amount)</span> and extra money.<br> Thank you!\n'),
+(3, 'Hi! This is Cheronzelle Clinic please be informed that your appointment date is on <span style=\"color:red\">(Appointment Date and Time)</span>. Please do fasting from 10-12 hours & bring <span style=\"color:red\">(package/service amount)</span> and extra money. Thank you!'),
+(4, 'Hi! This is Cheronzelle Clinic please be informed that your appointment date is on <span style=\"color:red\">(Appointment Date and Time)</span>. Please bring <span style=\"color:red\">(package/service amount)</span> and extra money. Thank you!<br>\n----------------<br>\n<span style=\"color:red\">\n*(Appointment Date and Time) – lalagay yung piniling <br>appointment date & time<br>\n*(package/service amount) – lalagay package/service na pinili<br>\n</span>');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_users`
 --
 
@@ -292,7 +375,7 @@ CREATE TABLE `tbl_users` (
 
 INSERT INTO `tbl_users` (`id`, `uid`, `pass`, `user_access`) VALUES
 (2, 'admin', '1', 'admin'),
-(9, 'testuser1', '1', 'user');
+(9, 'testuser1', 'test1234', 'user');
 
 --
 -- Indexes for dumped tables
@@ -302,6 +385,12 @@ INSERT INTO `tbl_users` (`id`, `uid`, `pass`, `user_access`) VALUES
 -- Indexes for table `tbl_appointments`
 --
 ALTER TABLE `tbl_appointments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_appointment_cancellation_reason`
+--
+ALTER TABLE `tbl_appointment_cancellation_reason`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -335,6 +424,12 @@ ALTER TABLE `tbl_package_services`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_package_sms`
+--
+ALTER TABLE `tbl_package_sms`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_profile`
 --
 ALTER TABLE `tbl_profile`
@@ -344,6 +439,18 @@ ALTER TABLE `tbl_profile`
 -- Indexes for table `tbl_services`
 --
 ALTER TABLE `tbl_services`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_service_sms`
+--
+ALTER TABLE `tbl_service_sms`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_sms_templates`
+--
+ALTER TABLE `tbl_sms_templates`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -360,13 +467,19 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_appointments`
 --
 ALTER TABLE `tbl_appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
+-- AUTO_INCREMENT for table `tbl_appointment_cancellation_reason`
+--
+ALTER TABLE `tbl_appointment_cancellation_reason`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_appointment_details`
 --
 ALTER TABLE `tbl_appointment_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `tbl_available_appointments`
@@ -384,13 +497,19 @@ ALTER TABLE `tbl_lab_results`
 -- AUTO_INCREMENT for table `tbl_packages`
 --
 ALTER TABLE `tbl_packages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tbl_package_services`
 --
 ALTER TABLE `tbl_package_services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+
+--
+-- AUTO_INCREMENT for table `tbl_package_sms`
+--
+ALTER TABLE `tbl_package_sms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_profile`
@@ -403,6 +522,18 @@ ALTER TABLE `tbl_profile`
 --
 ALTER TABLE `tbl_services`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `tbl_service_sms`
+--
+ALTER TABLE `tbl_service_sms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_sms_templates`
+--
+ALTER TABLE `tbl_sms_templates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`

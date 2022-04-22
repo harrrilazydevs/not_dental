@@ -39,8 +39,8 @@
             <div class="container mt-xl-4 mt-lg-4">
                 <div class="row">
                     <div class="col-12">
-                        <button class="text-white" id="btn_admin_add_package"  style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">ADD</button>
-                        <button id="btn_admin_edit_package" class="text-white me-lg-2 me-xl-2" style="background:#49A0B3; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">EDIT</button>
+                        <button class="text-white" id="btn_admin_add_service_sms"  style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">ADD</button>
+                        <button id="btn_admin_delete_service_sms" class="text-white me-lg-2 me-xl-2" style="background:#49A0B3; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">DELETE</button>
                     </div>
                 </div>
             </div>
