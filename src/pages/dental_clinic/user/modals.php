@@ -414,3 +414,42 @@
 
     </div>
 </div>
+
+
+
+<div class="modal fade" id="privacy_policy" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+
+
+
+                <div class="container">
+                    <div class="row">
+                        <div>
+                            <div style="float: left">
+                                <img src="src/resources/img/bg_caduceus.png " style="width: 80px;">
+                            </div>
+                            <div class="mt-4">
+                                <h5 style="-webkit-text-stroke-width: 1.4px !important; -webkit-text-stroke-color: #4bb9a9 !important; color: white !important; font-size: 14pt !important; letter-spacing: 2px;">CHERONZELLE</h5>
+                            </div>
+                        </div>
+
+
+                        <div class="container" style="width: 90%;">
+                            <div class="row">
+                                <div class="col-12 ms-lg-3 mt-3">
+                                <h5 class="text-center" style="-webkit-text-stroke-width: 1.4px !important; -webkit-text-stroke-color: black !important; font-size: 12pt !important; letter-spacing: 4px;">Privacy Policy</h5>
+
+                                    <p class="text-black">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, ipsa. Id quasi sint velit excepturi optio. Veritatis quo ullam facilis atque labore quasi nisi cum hic repellendus, recusandae, odit esse!
+                                    </p>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
