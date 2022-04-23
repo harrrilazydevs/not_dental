@@ -1,5 +1,3 @@
-
-
 // const sign_in_btn = document.querySelector("#sign-in-btn");
 // const sign_up_btn = document.querySelector("#sign-up-btn");
 // const container = document.querySelector(".container");
@@ -12,7 +10,13 @@
 //   container.classList.remove("sign-up-mode");
 // });
 
-
+$(".dental_carousel").flickity({
+  // options
+  cellAlign: 'left',
+  wrapAround: true,
+  freeScroll: true,
+  autoPlay: true
+});
 
 
 // // <-------TEXT TYPING HOME SECTION--------->//
@@ -27,4 +31,3 @@ function typing() {
   }
 }
 typing();
-// // <-------TEXT TYPING HOME SECTION--------->//

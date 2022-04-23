@@ -848,43 +848,73 @@ input[type=file]::-webkit-file-upload-button {
 
 
 
-@media screen and (min-width: 576px) {
-  .bottom_nav_list {
-    justify-content: center;
-    column-gap: 3rem;
-    padding: 0.2 4rem !important;
-
-  }
-
-
-
-}
 
 @media screen and (max-width: 375px) {
 
-  .dentalCard {
-    width: 50% !important;
+  .privacy_policy{
+    font-size: 12px ;
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+  }
+
+  .dentalCard{
+    width: 70% !important;
     margin-top: 5% !important;
+    height: 75% !important;
+  }
+
+  .about_container{
+    font-size: 12px;
+  }
+
+  .flickity-prev-next-button .flickity-button-icon {
+    position: absolute;
+    left: 20%;
+    top: 20% !important;
+    width: 60%;
+    height: 60%;
+  }
+
+  .flickity-prev-next-button {
+    top: 40%;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    transform: translateY(-50%);
   }
 
   .dentalCard img {
-    width: 30px !important;
+    width: 65px !important;
     height: 70px !important;
+    margin-top: 10%;
   }
-
   .dentalCard span {
     font-size: 12px;
     margin: 0;
     letter-spacing: 0px !important;
   }
 
-  .dentalCard button{
+  #dental_text{
+    font-size: 12px !important;
+  }
+
+  .dentalCard button {
     width: 50px !important;
     font-size: 12px !important;
     letter-spacing: 0 !important;
     height: 20px !important;
   }
+
+  .dental_inner_carousel {
+    width: 100% !important;
+    height:300px !important;
+    margin-right: 10px;
+    margin-bottom: 12% !important;
+  }
+
 }
+
 
 .dentalCard button {
   font-weight: bold;
@@ -900,6 +930,20 @@ input[type=file]::-webkit-file-upload-button {
   letter-spacing: 1px !important;
 }
 
-.carousel-inner .dentalCard {
-  margin: auto;
+.dentalCard {
+  margin:  auto !important;
 }
+
+.dental_inner_carousel{
+  height: 350px;
+  margin: 35px;
+  overflow: hidden !important;
+  width: 260px;
+  object-fit: cover !important;
+
+}
+
+.flickity-page-dots .dot {
+  display: none;
+}
+
