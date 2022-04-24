@@ -29,11 +29,12 @@
 
         <div class="container-lg my-3 mt-5" style="width: 70% !important;">
         
-            <div class="dental_carousel">
+            <div class="dental_carousel" id="test">
+
 
                 <!---------- TOLS SA ISANG CAROUSEL ISANG CARD----------->
 
-                <div class="dental_inner_carousel">
+                <!-- <div class="dental_inner_carousel">
                     <div class="card dentalCard text-center">
                         <div>
                             <img src="src/resources/img/bottle.png" class="card-img-top" style="border-radius: 2%; width: 50% !important; height: 15rem ;">
@@ -101,7 +102,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div> -->
                 
             </div>
 

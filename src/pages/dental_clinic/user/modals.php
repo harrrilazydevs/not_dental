@@ -41,7 +41,7 @@
 
                 <div class="container" style="border-radius: 5%;">
 
-                    <h2 class="card-title h4 mb-2 text-center" style="letter-spacing: 3px;">Package 1</h2>
+                    <h2 class="card-title h4 mb-2 text-center" id="md_package_title" style="letter-spacing: 3px;">Package 1</h2>
 
                     <div class="row mt-5 text-center align-items-center">
                         <div class="col-6">
@@ -50,14 +50,14 @@
                         </div>
 
                         <div class="col-6">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum porro tempora ue!</p>
-                            <p>₱ 1,050</p>
+                            <p  id="md_package_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum porro tempora ue!</p>
+                            <p  id="md_package_price">₱ 1,050</p>
                         </div>
                     </div>
 
                     <div class="row  text-center align-items-center">
                         <div class="col-12 mb-3">
-                            <button class="mt-2 text-white" style="font-weight:bold; background:#47B0A0; border-radius: 50px; width:120px; border: none; height: 35px;">Avail</button>
+                            <button id="btn_avail_package" class="mt-2 text-white" style="font-weight:bold; background:#47B0A0; border-radius: 50px; width:120px; border: none; height: 35px;">Avail</button>
                         </div>
                     </div>
 
@@ -314,13 +314,13 @@
                                 <label>Gender</label>
                                 <br>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="update_acc_gender_male">
+                                    <input class="form-check-input gender_chk" type="radio" name="gender" value="Male" id="update_acc_gender_male">
                                     <label class="form-check-label" for="update_acc_gender_male">
                                         Male
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="update_acc_gender_female" checked>
+                                    <input class="form-check-input gender_chk" type="radio"  name="gender" value="Female"  id="update_acc_gender_female" checked>
                                     <label class="form-check-label" for="update_acc_gender_female">
                                         Female
                                     </label>
@@ -394,6 +394,7 @@
                         <div class="col-12">
                             <i class="fa-solid fa-square-check h1 m-5 text-white" style="font-size: 100px;" id="icon_1"></i>
                             <i class="fa-solid fa-ban h1 m-5 text-white" style="font-size: 100px;" id="icon_2"></i>
+                            <i class="fa-solid fa-circle-info h1 m-5 text-white" style="font-size: 100px;" id="icon_3"></i>
                         </div>
                     </div>
 

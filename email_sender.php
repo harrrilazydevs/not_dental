@@ -13,8 +13,8 @@ $mail->SMTPAuth   = TRUE;
 $mail->SMTPSecure = "tls";
 $mail->Port       = 587;
 $mail->Host       = "smtp.gmail.com";
-$mail->Username   = "otakuburgershop@gmail.com";
-$mail->Password   = "otaku123456789";
+$mail->Username   = "clinic.cheronzelle@gmail.com";
+$mail->Password   = "cheronzelle123456789";
 
 // $mail->IsHTML(true);
 // $mail->AddAddress($_POST['customer_email'], "Customer");
