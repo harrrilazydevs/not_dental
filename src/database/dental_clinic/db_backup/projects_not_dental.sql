@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2022 at 04:09 PM
+-- Generation Time: Apr 24, 2022 at 07:38 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.30
 
@@ -35,13 +35,6 @@ CREATE TABLE `tbl_appointments` (
   `status` varchar(100) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tbl_appointments`
---
-
-INSERT INTO `tbl_appointments` (`id`, `availability_id`, `user_id`, `date_booked`, `status`) VALUES
-(40, 1, 9, '2022-04-17', 'no-show');
-
 -- --------------------------------------------------------
 
 --
@@ -71,7 +64,16 @@ CREATE TABLE `tbl_appointment_details` (
 --
 
 INSERT INTO `tbl_appointment_details` (`id`, `service_id`, `appointment_id`) VALUES
-(63, 20, 40);
+(63, 20, 40),
+(64, 20, 41),
+(65, 20, 42),
+(66, 23, 43),
+(67, 1, 44),
+(68, 1, 45),
+(69, 3, 45),
+(70, 20, 45),
+(71, 20, 46),
+(72, 20, 47);
 
 -- --------------------------------------------------------
 
@@ -93,12 +95,12 @@ CREATE TABLE `tbl_available_appointments` (
 --
 
 INSERT INTO `tbl_available_appointments` (`id`, `date`, `time`, `services`, `slot`, `physician`) VALUES
-(1, '2022-04-20', '7:00 - 9:00 AM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
-(2, '2022-04-20', '8:00 - 9:00 AM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
-(3, '2022-04-20', '9:00 - 11:00 AM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
-(4, '2022-04-20', '12:00 - 1:00 PM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
-(5, '2022-04-20', '1:00 - 3:00 PM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
-(6, '2022-04-20', '3:00 - 5:00 PM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad');
+(1, '2022-04-24', '7:00 - 9:00 AM', 'ALL', 9, 'Dra. Catherine Marcaig Jr Felisidad'),
+(2, '2022-04-24', '8:00 - 9:00 AM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
+(3, '2022-04-24', '9:00 - 11:00 AM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
+(4, '2022-04-24', '12:00 - 1:00 PM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
+(5, '2022-04-24', '1:00 - 3:00 PM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad'),
+(6, '2022-04-24', '3:00 - 5:00 PM', 'ALL', 10, 'Dra. Catherine Marcaig Jr Felisidad');
 
 -- --------------------------------------------------------
 
@@ -262,7 +264,7 @@ CREATE TABLE `tbl_profile` (
 --
 
 INSERT INTO `tbl_profile` (`id`, `f_name`, `m_name`, `l_name`, `gender`, `house_no`, `street`, `brgy`, `city`, `province`, `user_id`, `age`, `bdate`, `contact_no`, `email`, `picture`) VALUES
-(10, 'Arthur', 'M', 'Nery', '', '2', 'Scorpion', 'Tibay', 'Manila', 'Mindanao', 9, 23, '1998-06-04', '09055297208', 'kdlanguido@gmail.com', 'src/uploaded/dental_clinic/profile_pictures/263022592_607624670356476_6136983158725394169_n.jpg'),
+(10, 'Arthur', 'M', 'Nery', '', '2', 'Scorpion', 'Tibay', 'Manila', 'Mindanao', 9, 23, '1998-06-04', '09055297208', 'kdlanguido@gmail.com', 'src/uploaded/dental_clinic/profile_pictures/275556878_485765379909044_671446762147944174_n.png'),
 (11, 'Jasmyn Icee', 'N/A', 'Languido', 'female', '24', 'Bonifacio High Street', 'Fort Bonifacio', 'Taguig', 'Metro Manila', 2, 23, '1998-06-04', '09055297208', 'kdlanguido@gmail.com', 'src/uploaded/dental_clinic/profile_pictures/275485425_1642370326109169_4198055818920009956_n.jpg');
 
 -- --------------------------------------------------------
@@ -333,7 +335,8 @@ CREATE TABLE `tbl_service_sms` (
 --
 
 INSERT INTO `tbl_service_sms` (`id`, `service_id`, `sms_id`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(2, 20, 1);
 
 -- --------------------------------------------------------
 
@@ -467,7 +470,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_appointments`
 --
 ALTER TABLE `tbl_appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `tbl_appointment_cancellation_reason`
@@ -479,7 +482,7 @@ ALTER TABLE `tbl_appointment_cancellation_reason`
 -- AUTO_INCREMENT for table `tbl_appointment_details`
 --
 ALTER TABLE `tbl_appointment_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `tbl_available_appointments`
@@ -527,7 +530,7 @@ ALTER TABLE `tbl_services`
 -- AUTO_INCREMENT for table `tbl_service_sms`
 --
 ALTER TABLE `tbl_service_sms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_sms_templates`

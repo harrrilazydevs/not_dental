@@ -24,6 +24,8 @@ let search_function_config = {
   tbl_registered_patient: "txt_registered_patient"
 };
 
+let sms_list = [];
+
 const weekday = [
   "Sunday",
   "Monday",
@@ -181,6 +183,7 @@ $("#btn_login").on("click", function () {
           $('#sidebar_user').removeClass('d-none')
           $('#sidebar_name').text(data[0].f_name)
           $('#sidebar_img').attr('src', data[0].picture)
+          load_available_appointments();
 
 
         }
@@ -1063,7 +1066,7 @@ $('#btn_admin_delete_service_sms').on('click', function () {
 $('#btn_confirm_delete_service_sms').on('click', function () {
   $.post('src/database/dental_clinic/func/admin/delete_sms_to_service.php', { id: selected_id })
     .done(function (data) {
-      if (data == 201){
+      if (data == 201) {
         show_msg("SMS Deleted successfully.", 1)
       }
     })
@@ -1872,6 +1875,20 @@ $(document).ready(function () {
 
 selected_services = [];
 
+function get_sms(selected_id, type) {
+  if (type == 'service') {
+    $.getJSON("src/database/dental_clinic/func/user/read_service_sms_by_id.php?id=" + selected_id, function (data) {
+      sms_list.push(data[0].sms)
+    })
+  }
+  else {
+    $.getJSON("src/database/dental_clinic/func/user/read_package_sms_by_id.php?id=" + selected_id, function (data) {
+
+    })
+  }
+
+}
+
 $(".services_btn").on("click", function () {
   var title = "";
   title = $(this).attr("attr-name");
@@ -1937,13 +1954,17 @@ $(".services_btn").on("click", function () {
         $("#txt_md_service_title").text(title);
 
         $(".chk_service").unbind("click").on("click", function (key, val) {
+
           var val = $(this).val();
           var service = $(this).attr('attr-service');
+          var el = $(this)
+
           if ($(this).prop("checked")) {
             if (!selected_services.includes($(this).val())) {
               selected_services.push($(this).val());
               selected_services_list.push($(this).attr('attr-service'));
               load_selected_services_list();
+              get_sms(val, 'service')
             }
           } else {
 
@@ -2023,6 +2044,7 @@ $(".services_btn").on("click", function () {
           $(this).prop("checked", true)
           selected_services = [];
           selected_package = el.attr('attr-id')
+          get_sms(val, 'service')
 
           selected_services_list = [];
           selected_services_list.push($(this).attr('attr-service'));
@@ -2047,26 +2069,42 @@ $(".services_btn").on("click", function () {
 });
 
 $("#md_make_appointment_book").on("click", function () {
+
+  var availability_id = $(this).attr("attr-id");
   if (selected_services.length > 0) {
-    data = {
-      availability_id: $(this).attr("attr-id"),
-      user_id: $("#txt_user_id").val(),
-      selected_services: selected_services,
-    };
-    $.post("src/database/dental_clinic/func/user/add_appointment.php", data).done(
-      function (cb) {
-        console.log('sms sent!')
-        // $.post("src/database/dental_clinic/func/user/send_sms.php", {
-        //   1: $('#txt_user_mobile').val(),
-        //   2: 'TEST',
-        //   3: 'ST-CHERO405529_H3XVJ',
-        //   4: '8k%)}en7@1',
-        // }).done(function () {
-        //   show_msg("Appointment Successfully Booked!", 1);
-        //   load_available_appointments();
-        // })
+    $.post("src/database/dental_clinic/func/user/check_if_user_has_pending_appointment.php", {
+      id: $("#txt_user_id").val()
+    }).done(function (data) {
+
+      data = JSON.parse(data)
+      if (data.length > 0) {
+        show_msg("You have pending appointment!", 2)
       }
-    );
+      else {
+
+        data = {
+          availability_id: availability_id,
+          user_id: $("#txt_user_id").val(),
+          selected_services: selected_services,
+        };
+        $.post("src/database/dental_clinic/func/user/add_appointment.php", data).done(
+          function () {
+
+            console.log(sms_list)
+            // $.post("src/database/dental_clinic/func/user/send_sms.php", {
+            //   1: $('#txt_user_mobile').val(),
+            //   2: 'TEST',
+            //   3: 'ST-CHERO405529_H3XVJ',
+            //   4: '8k%)}en7@1',
+            // }).done(function () {
+            //   show_msg("Appointment Successfully Booked!", 1);
+            //   load_available_appointments();
+            // })
+          }
+        );
+
+      }
+    })
   }
   else {
     show_msg("Please select a service", 2)
