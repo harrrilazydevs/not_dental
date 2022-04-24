@@ -118,9 +118,10 @@ if (!isset($_SESSION['access_level'])) {
         // include_once 'src/pages/dental_clinic/user/modals.php';
         // include_once 'src/pages/dental_clinic/user/userMobileSidebar.php';
         include_once 'src/pages/dental_clinic/user/bottomNav.php';
-
+        
         echo '<script src="src/func/dental_clinic/main.js"></script>';
         echo '<script src="src/func/dental_clinic/user/user.js"></script>';
+
 
     }
 

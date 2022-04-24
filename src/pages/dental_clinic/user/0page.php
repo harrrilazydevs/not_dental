@@ -26,15 +26,20 @@
             </div>
         </div>
 
+
         <div class="container-lg my-3 mt-5" style="width: 70% !important;">
+        
             <div class="dental_carousel">
+
+                <!---------- TOLS SA ISANG CAROUSEL ISANG CARD----------->
+
                 <div class="dental_inner_carousel">
                     <div class="card dentalCard text-center">
                         <div>
                             <img src="src/resources/img/bottle.png" class="card-img-top" style="border-radius: 2%; width: 50% !important; height: 15rem ;">
                         </div>
                         <div class="card-body">
-                            <span class="card-title h6 mb-2">Complete Medical Exam</span>
+                            <span class="card-title h6 mb-2">Complete Medical Exam1</span>
                             <br>
                             <button data-bs-toggle="modal" data-bs-target="#package" class="mt-2 text-white">Avail</button>
                         </div>
@@ -48,7 +53,7 @@
                             <img src="src/resources/img/bottle.png" class="card-img-top" style="border-radius: 2%; width: 50% !important; height: 15rem ;">
                         </div>
                         <div class="card-body">
-                            <span class="card-title h6 mb-2">Complete Medical Exam</span>
+                            <span class="card-title h6 mb-2">Complete Medical Exam2</span>
                             <br>
                             <button data-bs-toggle="modal" data-bs-target="#package" class="mt-2 text-white">Avail</button>
                         </div>
@@ -62,13 +67,42 @@
                             <img src="src/resources/img/bottle.png" class="card-img-top" style="border-radius: 2%; width: 50% !important; height: 15rem ;">
                         </div>
                         <div class="card-body">
-                            <span class="card-title h6 mb-2">Complete Medical Exam</span>
+                            <span class="card-title h6 mb-2">Complete Medical Exam3</span>
                             <br>
                             <button data-bs-toggle="modal" data-bs-target="#package" class="mt-2 text-white">Avail</button>
                         </div>
                     </div>
 
                 </div>
+
+                <div class="dental_inner_carousel">
+                    <div class="card dentalCard text-center">
+                        <div>
+                            <img src="src/resources/img/bottle.png" class="card-img-top" style="border-radius: 2%; width: 50% !important; height: 15rem ;">
+                        </div>
+                        <div class="card-body">
+                            <span class="card-title h6 mb-2">Complete Medical Exam4</span>
+                            <br>
+                            <button data-bs-toggle="modal" data-bs-target="#package" class="mt-2 text-white">Avail</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="dental_inner_carousel">
+                    <div class="card dentalCard text-center">
+                        <div>
+                            <img src="src/resources/img/bottle.png" class="card-img-top" style="border-radius: 2%; width: 50% !important; height: 15rem ;">
+                        </div>
+                        <div class="card-body">
+                            <span class="card-title h6 mb-2">Complete Medical Exam5</span>
+                            <br>
+                            <button data-bs-toggle="modal" data-bs-target="#package" class="mt-2 text-white">Avail</button>
+                        </div>
+                    </div>
+
+                </div>
+                
             </div>
 
             <div class="row">
