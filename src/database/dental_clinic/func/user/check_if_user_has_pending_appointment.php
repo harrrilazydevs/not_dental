@@ -4,6 +4,7 @@ include '../../db.php';
 
 $id = $_POST['id'];
 
+
 $q = '
         SELECT 
                 *
@@ -16,4 +17,8 @@ $q = '
 $db = new Database();
 $result = $db->read($q);
 
-echo json_encode($result);
+if (count($result) > 0) {
+        echo 1;
+} else {
+        echo 0;
+}

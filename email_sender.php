@@ -18,7 +18,7 @@ $mail->Password   = "cheronzelle123456789";
 
 // $mail->IsHTML(true);
 // $mail->AddAddress($_POST['customer_email'], "Customer");
-// $mail->SetFrom("otakuburgershop@gmail.com", "Otaku Burger Shop");
+// $mail->SetFrom("clinic.cheronzelle@gmail.com", "Cheronzelle Clinic");
 // $mail->Subject = $_POST['email_subject'];
 
 // $mail->MsgHTML($_POST['email_body']); 

@@ -19,6 +19,25 @@ $q = '
 $db->update($q);
 
 $q = '
+        SELECT 
+                email
+        FROM 
+                tbl_profile a
+        LEFT JOIN
+                tbl_users b
+        ON      
+                b.id = a.user_id 
+        LEFT JOIN
+                tbl_appointments c
+        ON
+                c.user_id = b.id
+        WHERE   
+                c.id = "'.$_POST['id'].'"
+';
+
+$email = $db->read($q);
+
+$q = '
         INSERT INTO  
                 tbl_lab_results
                 (
@@ -40,3 +59,5 @@ if(isset($_FILES['file']['name']))
     $cpath="../../../../uploaded/dental_clinic/lab_results/APRES-".$_POST['id'].".pdf";
     move_uploaded_file($_FILES["file"]["tmp_name"], $cpath);
 }
+
+echo json_encode($email);

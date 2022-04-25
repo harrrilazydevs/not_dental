@@ -40,10 +40,16 @@
                             <i class="fas fa-user"></i>
                             <input type="text" id="txt_sign_up_uid" placeholder="Username" />
                         </div>
-                        <div class="input-field">
+                        <div class="input-field" style="position:relative;">
                             <i class="fas fa-envelope"></i>
                             <input type="email" id="txt_sign_up_email" placeholder="Email" />
+                            <button class="verify_email_outputs" id="btn_send_code" style="display:none; position:absolute; right:0; top:15px; font-size:9pt; background:transparent; border:none;">Send Code</button>
                         </div>
+                        <div class="verify_email_outputs" style="display:none; ">
+                        <small class="text-secondary">You need to verify your email</small>
+
+                        </div>
+
                         <div class="input-field">
                             <i class="fas fa-lock"></i>
                             <input type="password" id="txt_sign_up_pass"  placeholder="Password" />

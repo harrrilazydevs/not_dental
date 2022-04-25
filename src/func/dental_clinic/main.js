@@ -24,6 +24,7 @@ let search_function_config = {
   tbl_registered_patient: "txt_registered_patient",
 };
 
+var not_verified_email = true;
 let sms_list = [];
 
 const weekday = [
@@ -147,37 +148,6 @@ $(".btn_view_update_account").on("click", function () {
 
 $("#btn_login").on("click", function () {
   if ($("#txt_username").val() && $("#txt_password").val()) {
-    // $.ajax({
-    //   type: "POST",
-    //   url: "src/database/dental_clinic/func/login.php",
-    //   data: {
-    //     username: $("#txt_username").val(),
-    //     password: $("#txt_password").val(),
-    //   },
-    //   success: function (data) {
-
-    //     if (data == 0) {
-    //       show_msg("Invalid Username / Password", 2);
-
-    //     } else {
-    //       var data = JSON.parse(data)
-
-    //       if (data[0].user_access == "admin") {
-    //         location.reload()
-    //       }
-    //       else {
-    //         location.reload()
-    //         change_page("dashboard");
-    //       }
-    //       show_msg("Login Successful", 1);
-
-    //       if ($('#txt_user_access').val() == "user") {
-    //         $('#sidebar_user').removeClass('d-none')
-    //       }
-
-    //     }
-    //   },
-    // });
 
     $.post("src/database/dental_clinic/func/login.php", {
       username: $("#txt_username").val(),
@@ -198,6 +168,8 @@ $("#btn_login").on("click", function () {
           $("#sidebar_name").text(data[0].f_name);
           $("#sidebar_img").attr("src", data[0].picture);
           load_available_appointments();
+          location.reload();
+          
         }
       }
     });
@@ -347,7 +319,7 @@ function load_admin_accounts() {
 function load_incoming_appointments() {
   $.getJSON(
     "src/database/dental_clinic/func/user/read_incoming_appointments.php?user_id=" +
-      $("#txt_user_id").val(),
+    $("#txt_user_id").val(),
     function (data) {
       write_incoming_appointments(data);
     }
@@ -425,7 +397,7 @@ function write_incoming_appointments(data) {
 
     $.getJSON(
       "src/database/dental_clinic/func/user/read_selected_services_by_appointment_id.php?id=" +
-        $(this).attr("attr-id"),
+      $(this).attr("attr-id"),
       function (data) {
         $.each(data, function (key, val) {
           output +=
@@ -490,7 +462,7 @@ function write_incoming_appointments(data) {
 function load_appointments() {
   $.getJSON(
     "src/database/dental_clinic/func/user/read_appointments.php?user_id=" +
-      $("#txt_user_id").val(),
+    $("#txt_user_id").val(),
     function (data) {
       write_appointments(data);
     }
@@ -568,7 +540,7 @@ function write_appointments(data) {
 
       $.getJSON(
         "src/database/dental_clinic/func/user/read_selected_services_by_appointment_id.php?id=" +
-          $(this).attr("attr-id"),
+        $(this).attr("attr-id"),
         function (data) {
           output = "";
           price = 0;
@@ -620,7 +592,7 @@ function write_appointments(data) {
 function load_lab_results() {
   $.getJSON(
     "src/database/dental_clinic/func/user/read_lab_results.php?id=" +
-      $("#txt_user_id").val(),
+    $("#txt_user_id").val(),
     function (data) {
       write_lab_results(data);
     }
@@ -654,13 +626,13 @@ function show_msg(msg, icon) {
     $("#icon_1").removeClass("d-none");
     $("#icon_2").addClass("d-none");
     $("#icon_3").addClass("d-none");
-  } else if(icon == 2) {
+  } else if (icon == 2) {
     $("#icon_1").addClass("d-none");
     $("#icon_2").removeClass("d-none");
     $("#icon_3").addClass("d-none");
 
   }
-  else if(icon == 3) {
+  else if (icon == 3) {
     $("#icon_1").addClass("d-none");
     $("#icon_2").addClass("d-none");
     $("#icon_3").removeClass("d-none");
@@ -770,7 +742,7 @@ function compile_selected_services() {
   if (selected_services.length > 0) {
     $.getJSON(
       "src/database/dental_clinic/func/user/read_selected_services_by_id.php?id=" +
-        JSON.stringify(selected_services),
+      JSON.stringify(selected_services),
       function (data) {
         $.each(data, function (key, val) {
           output +=
@@ -831,7 +803,7 @@ function calculate_age(dob) {
 function load_user_account_details() {
   $.getJSON(
     "src/database/dental_clinic/func/user/read_user_profile.php?id=" +
-      $("#txt_user_id").val(),
+    $("#txt_user_id").val(),
     function (data) {
       $.each(data, function (key, val) {
         $("#update_acc_fname").val(val.f_name);
@@ -1308,7 +1280,7 @@ function write_sms_template(data) {
   $(".btn_edit_sms_template").on("click", function () {
     $.getJSON(
       "src/database/dental_clinic/func/admin/read_sms_template_by_id.php?id=" +
-        $(this).attr("attr-id"),
+      $(this).attr("attr-id"),
       function (data) {
         $("#admin_edit_sms").modal("show");
 
@@ -1537,8 +1509,15 @@ $("#btn_confirm_appointment_show").on("click", function () {
     "src/database/dental_clinic/func/admin/update_overview_appointment.php",
     data,
     function () {
-      // show_msg("Appointment marked successfully.", 1);
-      $("#admin_reason_of_cancel").modal("show");
+      // 
+
+      if (d_string == "noshow") {
+        $("#admin_reason_of_cancel").modal("show");
+
+      }
+      else {
+        show_msg("Appointment marked successfully.", 1);
+      }
       load_admin_overview();
     }
   );
@@ -1604,6 +1583,7 @@ function write_for_uploading(data) {
 $("#btn_upload_document").on("click", function (e) {
   e.preventDefault();
   $("#txt_upload_file").trigger("click");
+
 });
 
 $("#txt_upload_file").on("change", function (e) {
@@ -1620,6 +1600,15 @@ $("#txt_upload_file").on("change", function (e) {
     success: function (result) {
       $("#admin_appointment_upload").modal("hide");
       show_msg("Document Uploaded Successfully", 1);
+      data = JSON.parse(result)
+console.log()
+      $.post("email_sender.php", {
+        customer_email: data[0].email,
+        email_subject: 'Cheronzelle Clinic Laboratory Result',
+        email_body: 'Hello, the result of your appointment has been uploaded to the system. You may kindly check the system and download your result at <b>LABORATORY RESULT</b> tab of your dashboard <br> <br> Thank you!'
+      }).done(function () {
+        console.log("email sent")
+      })
     },
   });
 });
@@ -1633,7 +1622,7 @@ function load_packages() {
   );
 }
 
-$('#btn_avail_package').on('click', function(){
+$('#btn_avail_package').on('click', function () {
   $('#package').modal('hide')
   show_msg(`You need to login to avail this package<br><div class='text-center mt-3 '><button class="text-white" style="    font-weight: bold;
   background: #47B0A0;
@@ -1642,7 +1631,7 @@ $('#btn_avail_package').on('click', function(){
   border: none;
   height: 35px; font-size:12pt;" id="goto_login" data-bs-dismiss="modal">Login</button></div>`, 3)
 
-  $('#goto_login').on('click', function(){
+  $('#goto_login').on('click', function () {
     change_page('login')
   })
 })
@@ -1712,7 +1701,7 @@ function write_packages(data) {
       val.name +
       `</span>
                 <br>
-                <button data-bs-toggle="modal" attr-price="`+val.price+`" attr-name="`+val.name+`" attr-description="`+val.description+`" class="mt-2 text-white landing_view_package">View</button>
+                <button data-bs-toggle="modal" attr-price="`+ val.price + `" attr-name="` + val.name + `" attr-description="` + val.description + `" class="mt-2 text-white landing_view_package">View</button>
             </div>
         </div>
     </div>
@@ -1729,14 +1718,14 @@ function write_packages(data) {
     freeScroll: true,
     autoPlay: true,
   });
-  $('.landing_view_package').on('click',function(){
+  $('.landing_view_package').on('click', function () {
     $('#package').modal('show')
     $('#md_package_title').text($(this).attr('attr-name'))
     $('#md_package_description').text($(this).attr('attr-description'))
-    $('#md_package_price').text('₱'+$(this).attr('attr-price'))
+    $('#md_package_price').text('₱' + $(this).attr('attr-price'))
   })
 
-  
+
 
   $("#btn_add_service_to_package_save").unbind("click");
 
@@ -1775,7 +1764,7 @@ function write_packages(data) {
     var id = $(this).attr("attr-id");
     $.getJSON(
       "src/database/dental_clinic/func/user/read_package_services_landing.php?id=" +
-        id,
+      id,
       function (data) {
         $.each(data, function (key, val) {
           package_details += val.service + ",";
@@ -1806,7 +1795,7 @@ function write_packages(data) {
 function load_package_services(package_id) {
   $.getJSON(
     "src/database/dental_clinic/func/admin/read_services_by_package_id.php?id=" +
-      package_id,
+    package_id,
     function (data) {
       write_package_services(data);
     }
@@ -1926,6 +1915,8 @@ $(".booknowBtn").on("click", function () {
 $(document).ready(function () {
   search_function();
 
+  $('#btn_submit').attr('disabled', 'disabled')
+
   if (!$("#txt_user_access").val()) {
     $("#txt_user_access").attr("value", "user");
     load_packages();
@@ -1957,7 +1948,7 @@ function get_sms(selected_id, type) {
   if (type == "service") {
     $.getJSON(
       "src/database/dental_clinic/func/user/read_service_sms_by_id.php?id=" +
-        selected_id,
+      selected_id,
       function (data) {
         sms_list.push(data[0].sms);
       }
@@ -1965,8 +1956,10 @@ function get_sms(selected_id, type) {
   } else {
     $.getJSON(
       "src/database/dental_clinic/func/user/read_package_sms_by_id.php?id=" +
-        selected_id,
-      function (data) {}
+      selected_id,
+      function (data) { 
+        sms_list.push(data[0].sms);
+      }
     );
   }
 }
@@ -2183,7 +2176,7 @@ $(".services_btn").on("click", function () {
 
               $.getJSON(
                 "src/database/dental_clinic/func/user/read_package_services.php?id=" +
-                  el.attr("attr-id"),
+                el.attr("attr-id"),
                 function (data) {
                   $.each(data, function (key, val) {
                     selected_services.push(val.service_id);
@@ -2202,10 +2195,10 @@ $(".services_btn").on("click", function () {
 });
 
 function get_user_reminders() {
-  $.getJSON("", function (data) {});
+  $.getJSON("", function (data) { });
 }
 
-$("#md_make_appointment_book").on("click", function () {
+$("#md_make_appointment_book").unbind('click').on("click", function () {
   var availability_id = $(this).attr("attr-id");
   if (selected_services.length > 0) {
     $.post(
@@ -2214,8 +2207,8 @@ $("#md_make_appointment_book").on("click", function () {
         id: $("#txt_user_id").val(),
       }
     ).done(function (data) {
-      data = JSON.parse(data);
-      if (data.length > 0) {
+
+      if (data > 0) {
         show_msg("You have pending appointment!", 2);
       } else {
         data = {
@@ -2229,12 +2222,15 @@ $("#md_make_appointment_book").on("click", function () {
         ).done(function () {
           for (let index = 0; index < sms_list.length; index++) {
             const element = sms_list[index];
+
             // $.post("src/database/dental_clinic/func/user/send_sms.php", {
             //   1: $("#txt_user_mobile").val(),
             //   2: element,
             //   3: "ST-CHERO405529_H3XVJ",
             //   4: "8k%)}en7@1",
             // }).done(function () {});
+
+
           }
 
           show_msg("Appointment Successfully Booked!", 1);
@@ -2315,42 +2311,97 @@ $("#btn_update_account").on("click", function () {
     show_msg("Please fill-in required fields.", 2);
   }
 });
+function generate_otp() {
+  $.post(
+    "src/database/dental_clinic/func/user/generate_otp.php", { email: $('#txt_sign_up_email').val() }
+  ).done(function (data) {
 
-$('#txt_sign_up_email').on('focusout', function(){
-  show_msg(`
+    if (data == 401) {
+      show_msg("Email Exists!", 2)
+    }
+    else {
+
+      var msg = `
+      
+      Use this code to continue registration : <b>`+ data + `</b>
+      `
+      $.post("email_sender.php", {
+        customer_email: $('#txt_sign_up_email').val(),
+        email_subject: 'Email Verification Cheronzelle',
+        email_body: msg
+      }).done(function () {
+        console.log("email sent")
+      })
+      show_msg(`
   
-  OTP has been sent to your email, Please check your email <br>
-  <div class="text-center mt-3"> 
-  <input type="text" style="width:50%; margin:auto" class="form-control" id="txt_email_verification_register">
+      OTP has been sent to your email, Please check your email <br>
+      <div class="text-center mt-3"> 
+      <input type="text" style="width:50%; margin:auto" class="form-control" id="txt_email_verification_register">
+    
+    <div class="row mt-2">
+      <div class="col-6 pe-1 text-end">
+      <button class="btn" 
+      data-bs-dismiss="modal"
+      
+      style="
+      font-weight: bold;
+      background: red;
+      border-radius: 50px;
+      width: 120px;
+      border: none;
+      height: 35px;
+      font-size: 12pt;
+      ">Cancel</button>
+      </div>
+      <div class="col-6 ps-1 text-start">
+      <button class="btn" id="btn_register_verify_email" attr-code="`+ data + `" style="font-weight: bold;
+      background: #47B0A0;
+      border-radius: 50px;
+      width: 120px;
+      border: none;
+      height: 35px;
+      font-size: 12pt;">Verify</button>
+      </div>
+    </div>
+     
+    
+    <div>
+      
+      `, 3);
 
-<div class="row mt-2">
-  <div class="col-6 pe-1 text-end">
-  <button class="btn" id="btn_register_verify_email" style="
-  font-weight: bold;
-  background: red;
-  border-radius: 50px;
-  width: 120px;
-  border: none;
-  height: 35px;
-  font-size: 12pt;
-  ">Cancel</button>
-  </div>
-  <div class="col-6 ps-1 text-start">
-  <button class="btn" id="btn_register_verify_email" style="font-weight: bold;
-  background: #47B0A0;
-  border-radius: 50px;
-  width: 120px;
-  border: none;
-  height: 35px;
-  font-size: 12pt;">Verify</button>
-  </div>
-</div>
- 
+      $('#btn_register_verify_email').on('click', function () {
+        if ($(this).attr('attr-code') == $('#txt_email_verification_register').val()) {
+          show_msg("Email verification successful", 1)
+          $('#btn_submit').attr('disabled', false)
+        }
+      })
 
-<div>
-  
-  `, 3);
+    }
+
+
+
+  })
+}
+
+$('#txt_sign_up_email').on('focusout', function () {
+  $('.verify_email_outputs').show();
+
+
 })
+$('#btn_send_code').on('click', function () {
+
+  var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+  if (testEmail.test($('#txt_sign_up_email').val())) {
+    generate_otp()
+  }
+  else {
+    show_msg("Please enter a valid email", 2)
+  }
+
+
+
+})
+
 $("#btn_submit").on("click", function (e) {
   e.preventDefault();
 
@@ -2369,7 +2420,7 @@ $("#btn_submit").on("click", function (e) {
       data,
       function () {
         show_msg("Sign-up Successful!", 1);
-        
+
       }
     );
   } else {
@@ -2415,5 +2466,5 @@ $(".btn_view_registeredPatient").on("click", function () {
 
 $("#sel_cancelled_appointments_sort").on("change", function () {
   var selected_data = $(this).val();
-  $.getJSON("", function (data) {});
+  $.getJSON("", function (data) { });
 });

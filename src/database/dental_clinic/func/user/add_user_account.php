@@ -38,6 +38,5 @@ $q = '
                     '.$uid.'
                 )
             ';
-var_dump($q);
 
 $result = $db->update($q);
