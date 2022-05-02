@@ -5,7 +5,7 @@ include '../../db.php';
 $q = '
         SELECT 
                b.sms,
-               package,
+               c.name,
                a.id
         FROM
                 tbl_package_sms a 

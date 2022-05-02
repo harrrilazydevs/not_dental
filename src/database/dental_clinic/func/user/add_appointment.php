@@ -59,7 +59,9 @@ $result = $db->read($q);
 
 $remaining_slots = $result[0]['slot'];
 
-$remaining_slots = $remaining_slots - 1;
+$remaining_slots--;
+
+
 
 $q = '
         UPDATE
@@ -70,5 +72,7 @@ $q = '
                 id = "'.$availability_id.'"
 
 ';
+
+var_dump($q);
 
 $result = $db->update($q);

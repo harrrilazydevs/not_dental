@@ -24,7 +24,7 @@
             </div>
 
             <div class="table-responsive" id="no-more-tables" style="max-height:45vh;border: 3px solid  #7B7A7A; border-radius: 15px; box-shadow: 5px 10px #888888;">
-                <table class="table table-hover" id="tbl_packages_sms">
+                <table class="table table-hover" id="tbl_package_sms">
                     <thead class="text-center">
                         <tr class="table_title">
                             <th class="text-center" width="20%">PACKAGE</th>
@@ -39,8 +39,8 @@
             <div class="container mt-xl-4 mt-lg-4">
                 <div class="row">
                     <div class="col-12">
-                        <button class="text-white" id="btn_admin_add_package"  style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">ADD</button>
-                        <button id="btn_admin_edit_package" class="text-white me-lg-2 me-xl-2" style="background:#49A0B3; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">EDIT</button>
+                        <button class="text-white" id="btn_admin_add_package_sms"  style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">ADD</button>
+                        <button id="btn_admin_edit_package_sms" class="text-white me-lg-2 me-xl-2" style="background:#49A0B3; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem; float: right;">EDIT</button>
                     </div>
                 </div>
             </div>

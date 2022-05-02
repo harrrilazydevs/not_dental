@@ -43,7 +43,10 @@ if (isset($_FILES['picture'])) {
     }
 }
 
-$_SESSION['picture'] = $dir . $file_name;
+if($_SESSION['user_id'] == $_POST['id']){
+    $_SESSION['picture'] = $dir . $file_name;
+
+}
 
 
 $q = '

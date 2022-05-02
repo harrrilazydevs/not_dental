@@ -112,6 +112,8 @@
     </div>
 </div>
 
+
+
 <div class="modal fade" id="admin_edit_account" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
     <div class=" modal-dialog">
         <div class="modal-content" style="border-radius: 5%;">
@@ -167,6 +169,73 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="admin_add_account" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
+    <div class=" modal-dialog">
+        <div class="modal-content" style="border-radius: 5%;">
+            <div class="modal-body text-black">
+                <div class="container" style="border-radius: 5%; border: solid grey 5px;">
+                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">
+                        Add Account</h5>
+
+
+                    <div class="row mt-3">
+                        <div class="col-12 text-center">
+                            <!-- <div class="upload_modal mt-3">
+                                <img width="100" height="100" alt="">
+                                <div class="round">
+                                    <form action="" id="admin_picture">
+                                        <input type="file" name="file" id="update_acc_picture">
+                                        <input type="text" name="id" value="9" hidden="">
+                                        <i class="fa-solid fa-circle-plus fa-fw" style="color: white;"></i>
+                                    </form>
+                                </div>
+                            </div> -->
+                            <!-- <img class="icon_btn" title="Change Photo" style="border-radius:50%; height:120px;  width:120px;" id="img_add_account_picture"> -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <form enctype="multipart/form-data" method="post" id="form_admin_update_account">
+
+                                <label class="mt-2">First Name</label>
+                                <input type="text" class="form-control" id="txt_add_account_admin_f_name">
+
+                                <label class="mt-2">Middle Name</label>
+                                <input type="text" class="form-control" id="txt_add_account_admin_m_name">
+
+                                <label class="mt-2">Last Name</label>
+                                <input type="text" class="form-control" id="txt_add_account_admin_l_name">
+
+                                <label class="mt-2">Username</label>
+                                <input type="text" class="form-control" id="txt_add_account_admin_username">
+
+                                <label class="mt-2">Password</label>
+                                <input type="text" class="form-control" id="txt_add_account_admin_password">
+
+                                <input type="file" name="picture" id="txt_add_account_admin_picture" hidden>
+                                <input type="text" name="id" id="txt_add_account_admin_id" hidden>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <div class="row text-center mt-4 mb-4">
+                        <div class="col-12">
+                            <button class="text-white me-4" id="btn_add_account_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
+                            <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" id="admin_edit_package" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
     <div class=" modal-dialog">
@@ -291,8 +360,72 @@
     </div>
 </div>
 
+<div class="modal fade" id="admin_add_package_sms" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
+    <div class=" modal-dialog">
+        <div class="modal-content" style="border-radius: 5%;">
+            <div class="modal-body text-black">
+                <div class="container" style="border-radius: 5%; border: solid grey 5px;">
+                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Add SMS to Package</h5>
+                    <div class="row">
+                        <div class="col-12">
 
-<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  id="admin_reason_of_cancel" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
+                            <label class="mt-2">SMS</label>
+                            <select class="form-control" id="sel_add_package_sms">
+                            </select>
+
+                            <label class="mt-2">Package</label>
+                            <select class="form-control" id="sel_add_sms_package">
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="row text-center mt-4 mb-4">
+                        <div class="col-12">
+                            <button class="text-white me-4" id="btn_add_sms_to_package_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
+                            <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="admin_update_package_sms" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
+    <div class=" modal-dialog">
+        <div class="modal-content" style="border-radius: 5%;">
+            <div class="modal-body text-black">
+                <div class="container" style="border-radius: 5%; border: solid grey 5px;">
+                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Update SMS to Package</h5>
+                    <div class="row">
+                        <div class="col-12">
+
+                            <label class="mt-2">SMS</label>
+                            <select class="form-control" id="sel_update_package_sms">
+                            </select>
+
+                            <label class="mt-2">Package</label>
+                            <select class="form-control" id="sel_update_sms_package">
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="row text-center mt-4 mb-4">
+                        <div class="col-12">
+                            <button class="text-white me-4" id="btn_update_sms_to_package_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
+                            <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="admin_reason_of_cancel" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
     <div class=" modal-dialog">
         <div class="modal-content" style="border-radius: 5%;">
             <div class="modal-body text-black">

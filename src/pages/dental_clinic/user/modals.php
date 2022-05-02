@@ -50,8 +50,8 @@
                         </div>
 
                         <div class="col-6">
-                            <p  id="md_package_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum porro tempora ue!</p>
-                            <p  id="md_package_price">₱ 1,050</p>
+                            <p id="md_package_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum porro tempora ue!</p>
+                            <p id="md_package_price">₱ 1,050</p>
                         </div>
                     </div>
 
@@ -214,7 +214,7 @@
             <span class="ms-3 mt-3 badge bg-danger d-none" style="width:80px" id="badge_view_appointment_cancelled">Cancelled</span>
             <span class="ms-3 mt-3 badge bg-success d-none" style="width:80px" id="badge_view_appointment_completed">Completed</span>
 
-            <span class="h5 mt-lg-3 text-black text-center" style="letter-spacing: 4px; font-weight: bold;">Make Appointment</span>
+            <span class="h5 mt-lg-3 text-black text-center" style="letter-spacing: 4px; font-weight: bold;">Appointment</span>
 
             <div class="modal-body">
                 <div class="container" style="background-color: #F9F9F9; border-radius: 5px;">
@@ -269,6 +269,33 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false"  id="user_reason_of_cancel" aria-hidden="true" style="backdrop-filter: blur(16px) saturate(132%); -webkit-backdrop-filter: blur(16px) saturate(132%); background-color: rgba(17, 25, 40, 0.02);">
+    <div class=" modal-dialog">
+        <div class="modal-content" style="border-radius: 5%;">
+            <div class="modal-body text-black">
+                <div class="container" style="border-radius: 5%; border: solid grey 5px;">
+                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Reason of cancellation</h5>
+                    <div class="row">
+                        <div class="col-12">
+
+                            <label class="mt-2">Reason of Cancelling</label>
+                            <textarea rows="20" type="text" class="form-control" id="txt_user_reason"></textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="row text-center mt-4 mb-4">
+                        <div class="col-12">
+                            <button class="text-white me-4" id="btn_user_save_reason" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!----------------INCOMING APPOINTMENTS------------------->
 
 <!---------------- ACC INFORMATION MODAL ------------------->
@@ -294,7 +321,7 @@
                         <div class="col-lg-6 col-sm-12">
                             <div class="">
                                 <label for="lastname">Patient ID</label>
-                                <input class="form-control" type="text" id="update_acc_patient_id" required>
+                                <input readonly class="form-control" type="text" value="<?php echo $_SESSION['user_id']; ?>" id="update_acc_patient_id" required>
 
                                 <label for="lastname">Last Name</label>
                                 <input class="form-control" type="text" id="update_acc_lname" required>
@@ -320,7 +347,7 @@
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input gender_chk" type="radio"  name="gender" value="Female"  id="update_acc_gender_female" checked>
+                                    <input class="form-check-input gender_chk" type="radio" name="gender" value="Female" id="update_acc_gender_female" checked>
                                     <label class="form-check-label" for="update_acc_gender_female">
                                         Female
                                     </label>
@@ -349,7 +376,7 @@
                                 <input class="form-control" type="text" id="update_acc_province" required>
 
                                 <label for="Contact">Contact No</label>
-                                <input class="form-control" type="text" id="update_acc_contact" required>
+                                <input class="form-control" type="number" id="update_acc_contact" required>
 
                             </div>
                         </div>
@@ -361,8 +388,11 @@
                                 <label for="Username">Username</label>
                                 <input class="form-control" type="text" id="update_acc_username" required>
 
-                                <label for="Password">Password</label>
-                                <input class="form-control" type="text" id="update_acc_password" required>
+                                <div style="position:relative">
+                                    <label for="Password">Password</label>
+                                    <input class="form-control" type="password" id="update_acc_password" required>
+                                    <i class="fa-solid fa-eye text-secondary" id="btn_account_information_eye_icon" style="top:30px; right:15px; position:absolute"></i>
+                                </div>
 
                                 <label for="Password">Email</label>
                                 <input class="form-control" type="text" id="update_acc_email" required>
@@ -370,7 +400,7 @@
 
                             <div class="text-end">
                                 <button class="text-white px-2 ms-lg-2" id="btn_update_account" style="background: #80CEB8; border-radius:5px; text-decoration: none; cursor: pointer; font-size: 12px;  border: none; height: 30px;">DONE</button>
-                                <button class="text-white px-2 ms-lg-2" data-bs-dismiss="modal" style="background: red; border-radius:5px; text-decoration: none; cursor: pointer; font-size: 12px;  border: none; height: 30px;">CANCEL</button>
+                                <button class="text-white px-2 ms-lg-2" id="btn_account_information_close" style="background: red; border-radius:5px; text-decoration: none; cursor: pointer; font-size: 12px;  border: none; height: 30px;">CLOSE</button>
                             </div>
                         </div>
 
@@ -418,6 +448,68 @@
 
 
 
+<div class="modal fade" id="terms_and_conditions" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div>
+                            <div style="float: left">
+                                <img src="src/resources/img/bg_caduceus.png " style="width: 80px;">
+                            </div>
+                            <div class="mt-4">
+                                <h5 style="-webkit-text-stroke-width: 1.4px !important; -webkit-text-stroke-color: #4bb9a9 !important; color: white !important; font-size: 14pt !important; letter-spacing: 2px;">CHERONZELLE</h5>
+                            </div>
+                        </div>
+
+
+                        <div class="container" style="width: 90%;">
+                            <div class="row">
+                                <div class="col-12 ms-lg-3 mt-4">
+                                    <strong style="color: red;">REMINDERS:</strong>
+                                    <p class="text-black">To avoid technological incompatibilities, patients are advised to use
+                                        only Google or Yahoo email accounts while requesting an
+                                        appointment.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-12 ms-lg-3 text-black">
+                                    <h6 class="text-center" style="font-weight: bold;">TERMS AND CONDITIONS:</h6>
+                                    <p style="font-size: 14px; font-weight: bold;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore delectus maxime, iure ratione provident architecto itaque dolore necessitatibus eius. Facilis laboriosam ipsam corporis!
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="row mt-2">
+                                <div class="col-12 ms-lg-3 ">
+                                    <div class="form-check">
+                                        <input class="form-check-input " type="checkbox" value="" id="chk_terms_condition">
+                                        <p class="form-check-label" for="chk_terms_condition" style="color: red; font-weight: bold; font-size: 14px;">
+                                            By proceeding with this application, I understand that I am
+                                            significally lorem ipsumlorem ipsumlorem ipsumlorem ipsum
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3 mb-3">
+                                <div class="col text-center">
+                                    <button id="btn_terms_condition_start" class="text-white" style="display:none;background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 1.9rem;">START</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="privacy_policy" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -440,13 +532,13 @@
                         <div class="container" style="width: 90%;">
                             <div class="row">
                                 <div class="col-12 ms-lg-3 mt-3">
-                                <h5 class="text-center" style="-webkit-text-stroke-width: 1.4px !important; -webkit-text-stroke-color: black !important; font-size: 12pt !important; letter-spacing: 4px;">Privacy Policy</h5>
+                                    <h5 class="text-center" style="-webkit-text-stroke-width: 1.4px !important; -webkit-text-stroke-color: black !important; font-size: 12pt !important; letter-spacing: 4px;">Privacy Policy</h5>
 
                                     <p class="text-black">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, ipsa. Id quasi sint velit excepturi optio. Veritatis quo ullam facilis atque labore quasi nisi cum hic repellendus, recusandae, odit esse!
                                     </p>
                                 </div>
                             </div>
-                           
+
                         </div>
                     </div>
                 </div>

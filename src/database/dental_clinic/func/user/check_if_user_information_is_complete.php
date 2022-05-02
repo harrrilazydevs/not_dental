@@ -2,18 +2,20 @@
 //DATABASE FUNCTIONS
 include '../../db.php';
 
-$id = $_POST['id'];
+$id = $_GET['id'];
 
 
 $q = '
         SELECT 
                 *
         FROM
-                tbl_appointments
+                tbl_user a
+        LEFT JOIN
+                tbl_profile b
+        ON
+                a.profile_id = a.id
         WHERE 
-                user_id =' . $id . '
-        AND
-                status = "pending"
+                a.id =' . $id . '
 ';
 
 $db = new Database();

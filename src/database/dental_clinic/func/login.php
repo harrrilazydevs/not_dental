@@ -34,6 +34,16 @@ if(!empty($_POST)){
         $_SESSION['username'] = $result[0]['f_name'];
         $_SESSION['contact_no'] = $result[0]['contact_no'];
         $_SESSION['picture'] = $result[0]['picture'];
+        $_SESSION['gender'] = $result[0]['gender'];
+        $_SESSION['house_no'] = $result[0]['house_no'];
+        $_SESSION['street'] = $result[0]['street'];
+        $_SESSION['brgy'] = $result[0]['brgy'];
+        $_SESSION['city'] = $result[0]['city'];
+        $_SESSION['province'] = $result[0]['province'];
+        $_SESSION['age'] = $result[0]['age'];
+        $_SESSION['bdate'] = $result[0]['bdate'];
+        $_SESSION['contact_no'] = $result[0]['contact_no'];
+        $_SESSION['email'] = $result[0]['email'];
         
         echo json_encode($result);
 

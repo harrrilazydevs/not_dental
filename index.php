@@ -33,6 +33,7 @@ if (!isset($_SESSION['access_level'])) {
     <!-- THEMES -->
 
     <?php
+
     if ($_SESSION['theme'] == 'dental_clinic') {
         echo '<link rel="stylesheet" href="src/resources/styles/dental_clinic.css">';
         echo '<link rel="stylesheet" href="src/resources/styles/dental_clinic_kd.css">';
@@ -56,11 +57,11 @@ if (!isset($_SESSION['access_level'])) {
                                     echo $_SESSION['access_level'];
                                 }
                                 ?>" id="txt_user_access">
-    <input type="hidden" value="<?php
+    <input type="hidden" id="txt_user_mobile" value="<?php
                                 if (isset($_SESSION['contact_no'])) {
                                     echo $_SESSION['contact_no'];
                                 }
-                                ?>" id="txt_user_mobile">
+                                ?>" >
 
     <input type="hidden" id="txt_user_id" value="<?php
                                                     if (isset($_SESSION['user_id'])) {
@@ -68,10 +69,69 @@ if (!isset($_SESSION['access_level'])) {
                                                     }
                                                     ?>">
 
+    <input type="hidden" id="txt_gender" value="<?php
+                                                if (isset($_SESSION['gender'])) {
+                                                    echo $_SESSION['gender'];
+                                                }
+                                                ?>">
+
+    <input type="hidden" id="txt_house_no" value="<?php
+                                                    if (isset($_SESSION['house_no'])) {
+                                                        echo $_SESSION['house_no'];
+                                                    }
+                                                    ?>">
+
+    <input type="hidden" id="txt_street" value="<?php
+                                                if (isset($_SESSION['street'])) {
+                                                    echo $_SESSION['street'];
+                                                }
+                                                ?>">
+
+    <input type="hidden" id="txt_brgy" value="<?php
+                                                if (isset($_SESSION['brgy'])) {
+                                                    echo $_SESSION['brgy'];
+                                                }
+                                                ?>">
+
+    <input type="hidden" id="txt_city" value="<?php
+                                                if (isset($_SESSION['city'])) {
+                                                    echo $_SESSION['city'];
+                                                }
+                                                ?>">
+
+    <input type="hidden" id="txt_province" value="<?php
+                                                    if (isset($_SESSION['province'])) {
+                                                        echo $_SESSION['province'];
+                                                    }
+                                                    ?>">
+
+    <input type="hidden" id="txt_age" value="<?php
+                                                if (isset($_SESSION['age'])) {
+                                                    echo $_SESSION['age'];
+                                                }
+                                                ?>">
+
+    <input type="hidden" id="txt_bdate" value="<?php
+                                                if (isset($_SESSION['bdate'])) {
+                                                    echo $_SESSION['bdate'];
+                                                }
+                                                ?>">
+
+    <input type="hidden" id="txt_contact_no" value="<?php
+                                                    if (isset($_SESSION['contact_no'])) {
+                                                        echo $_SESSION['contact_no'];
+                                                    }
+                                                    ?>">
+
+    <input type="hidden" id="txt_email" value="<?php
+                                                if (isset($_SESSION['email'])) {
+                                                    echo $_SESSION['email'];
+                                                }
+                                                ?>">
     <!-- CONTENTS -->
     <?php
 
-    
+
     if ($_SESSION['theme'] == 'dental_clinic' && $_SESSION['access_level'] == 'admin') {
 
         // NAVS AND SIDEBARS
@@ -92,7 +152,6 @@ if (!isset($_SESSION['access_level'])) {
 
 
         echo '<script src="src/func/dental_clinic/admin/admin.js"></script>';
-        
     }
 
     if ($_SESSION['theme'] == 'dental_clinic') {
@@ -118,11 +177,9 @@ if (!isset($_SESSION['access_level'])) {
         // include_once 'src/pages/dental_clinic/user/modals.php';
         // include_once 'src/pages/dental_clinic/user/userMobileSidebar.php';
         include_once 'src/pages/dental_clinic/user/bottomNav.php';
-        
+
         echo '<script src="src/func/dental_clinic/main.js"></script>';
         echo '<script src="src/func/dental_clinic/user/user.js"></script>';
-
-
     }
 
     ?>
