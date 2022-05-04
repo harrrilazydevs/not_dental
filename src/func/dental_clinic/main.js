@@ -53,6 +53,18 @@ $("#btn_admin_sms_service").on("click", function () {
   load_service_sms();
 });
 
+$('#dash_filter_day').on('change', function () {
+  load_admin_overview_blocks('day', $(this).val())
+})
+$('#dash_filter_month').on('change', function () {
+  load_admin_overview_blocks('month', $(this).val())
+})
+$('#dash_filter_year').on('change', function () {
+  load_admin_overview_blocks('year', $(this).val())
+})
+
+
+
 function check_if_user_information_is_complete() {
   $.getJSON("src/database/dental_clinic/func/admin/check_if_user_information_is_complete.php", function (data) {
 
@@ -1480,8 +1492,10 @@ $("#btn_admin_edit_account").on("click", function () {
           }, 1500);
         }
       })
-      
+
   });
+
+
 });
 
 $("#btn_edit_account_save").on("click", function () {
@@ -1543,6 +1557,39 @@ $("#btn_admin_add_service").on("click", function () {
   $("#admin_add_service").modal("show");
 });
 
+$('#form_add_package').on('submit', function (e) {
+  e.preventDefault();
+  var formData = new FormData(this);
+  $.ajax({
+    url: "src/database/dental_clinic/func/admin/add_package.php",
+    type: 'POST',
+    data: formData,
+    success: function (data) {
+      show_msg("Package added successfully", 1)
+      load_packages();
+    },
+    cache: false,
+    contentType: false,
+    processData: false
+  });
+})
+
+$('#form_edit_package').on('submit', function (e) {
+  e.preventDefault();
+  var formData = new FormData(this);
+  $.ajax({
+    url: "src/database/dental_clinic/func/admin/update_package.php",
+    type: 'POST',
+    data: formData,
+    success: function (data) {
+      show_msg("Package updated successfully", 1)
+    },
+    cache: false,
+    contentType: false,
+    processData: false
+  });
+})
+
 $("#btn_add_service_save").on("click", function () {
   $("#admin_add_service").modal("hide");
   data = {
@@ -1562,6 +1609,96 @@ $("#btn_add_service_save").on("click", function () {
 });
 
 var d_string = "";
+
+function load_admin_overview_blocks(filter_by, value) {
+  $.getJSON(
+    "src/database/dental_clinic/func/admin/read_filter_data_dashboard.php?filter_by=" + filter_by + "&date=" + value,
+    function (data) {
+      write_admin_overview_blocks(data);
+    }
+  );
+}
+
+function write_admin_overview_blocks(data) {
+
+  $('#dash_accomplished_appointments').text(data.accomplished[0].count_accomplished)
+  $('#dash_cancelled_appointments').text(data.cancelled[0].count_cancelled)
+  $('#dash_number_of_accounts').text(data.account_created[0].count_created)
+  $('#dash_pending_appointments').text(data.pending[0].count_pending)
+  $('#dash_incoming_appointments').text(data.incoming[0].count_incoming)
+
+  if (data.total_profit[0]) {
+    $('#dash_total_profit').text('₱ ' + data.total_profit[0].total_profit)
+  }
+  else {
+    $('#dash_total_profit').text('₱ 0')
+  }
+
+  tbl_output_1 = `
+    <tr>
+      <td>₱  `+ data.total_profit[0].total_profit + `</td>
+      <td>`+ data.account_created[0].count_created + `</td>
+    </tr>
+  `;
+
+  tbl_output_2 = `
+    <tr>
+      <td>`+ data.accomplished[0].count_accomplished + `</td>
+      <td>`+ data.incoming[0].count_incoming + `</td>
+      <td>`+ data.pending[0].count_pending + `</td>
+      <td>`+ data.cancelled[0].count_cancelled + `</td>
+    </tr>
+  `;
+
+  $('#tbl_system_report tbody').empty().append(tbl_output_1)
+  $('#tbl_appointment_report tbody').empty().append(tbl_output_2)
+
+}
+
+function getPDF(){
+
+  $('.div_print_report').show();
+
+  var HTML_Width = $(".div_print_report").width();
+  var HTML_Height = $(".div_print_report").height();
+  var top_left_margin = 15;
+  var PDF_Width = HTML_Width+(top_left_margin*2);
+  var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+  var canvas_image_width = HTML_Width;
+  var canvas_image_height = HTML_Height;
+  
+  var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+  
+
+  html2canvas($(".div_print_report")[0],{allowTaint:true}).then(function(canvas) {
+    canvas.getContext('2d');
+    
+    console.log(canvas.height+"  "+canvas.width);
+    
+    
+    var imgData = canvas.toDataURL("image/jpeg", 1.0);
+    var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
+      pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+    
+    
+    for (var i = 1; i <= totalPDFPages; i++) { 
+      pdf.addPage(PDF_Width, PDF_Height);
+      pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+    }
+    
+      pdf.save("CHERONZELLE System Report.pdf");
+      });
+
+  $('.div_print_report').hide();
+
+};
+
+$('#btn_generate_report').on('click', function () {
+
+  getPDF()
+
+
+})
 
 function load_admin_overview() {
   $.getJSON(
@@ -1642,7 +1779,8 @@ $("#btn_confirm_appointment_show").on("click", function () {
       // 
 
       if (d_string == "noshow") {
-        $("#admin_reason_of_cancel").modal("show");
+        // $("#admin_reason_of_cancel").modal("show");
+        show_msg("Appointment marked successfully.", 1);
 
       }
       else {
@@ -1760,6 +1898,23 @@ function load_packages() {
   );
 }
 
+$('#txt_edit_package_picture').on('change', function () {
+  var input = this;
+  var url = $(this).val();
+  var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+  if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      $('#img_package_preview').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+  else {
+    $('#img_package_preview').attr('src', '/assets/no_preview.png');
+  }
+})
+
 $('#btn_avail_package').on('click', function () {
   $('#package').modal('hide')
   show_msg(`You need to login to avail this package<br><div class='text-center mt-3 '><button class="text-white" style="    font-weight: bold;
@@ -1772,6 +1927,24 @@ $('#btn_avail_package').on('click', function () {
   $('#goto_login').on('click', function () {
     change_page('login')
   })
+})
+
+$('#dash_filter').on('change', function () {
+  if ($(this).val() == 'day') {
+    $('#dash_filter_day').show();
+    $('#dash_filter_month').hide();
+    $('#dash_filter_year').hide();
+  }
+  else if ($(this).val() == 'month') {
+    $('#dash_filter_month').show();
+    $('#dash_filter_day').hide();
+    $('#dash_filter_year').hide();
+  }
+  else {
+    $('#dash_filter_year').show();
+    $('#dash_filter_day').hide();
+    $('#dash_filter_month').hide();
+  }
 })
 
 
@@ -1802,6 +1975,11 @@ function write_packages(data) {
     output +=
       ` 
                 <tr
+
+                attr-picture="` +
+      val.picture +
+      `"
+
 
                 attr-description="` +
       val.description +
@@ -1842,7 +2020,7 @@ function write_packages(data) {
     <div class="dental_inner_carousel">
         <div class="card dentalCard text-center">
             <div>
-                <img src="src/resources/img/bottle.png" class="card-img-top" style="border-radius: 2%; width: 50% !important; height: 15rem ;">
+                <img src="`+ val.picture + `" class="card-img-top" style="border-radius: 2%; width: 50% !important; height: 15rem ;">
             </div>
             <div class="card-body">
                 <span class="card-title h6 mb-2">` +
@@ -1885,6 +2063,7 @@ function write_packages(data) {
       price: $(this).attr("attr-price"),
       status: $(this).attr("attr-status"),
       description: $(this).attr("attr-description"),
+      picture: $(this).attr("attr-picture"),
     };
     $(this).addClass("bg-selected");
   });
@@ -2003,6 +2182,7 @@ $("#btn_edit_package_save").on("click", function () {
     price: $("#txt_edit_package_price").val(),
     status: $("#txt_edit_package_status").val(),
     description: $("#txt_edit_package_description").val(),
+    picture: $("#txt_edit_package_picture").val(),
     id: $(this).attr("attr-id"),
   };
   $.post(
@@ -2054,6 +2234,8 @@ $("#btn_admin_edit_package").on("click", function () {
     $("#txt_edit_package_price").val(d.price);
     $("#txt_edit_package_status").val(d.status);
     $("#txt_edit_package_description").val(d.description);
+    $("#img_package_preview").attr('src', d.picture);
+    $('#txt_edit_package_id').val(d.id)
     $("#btn_edit_package_save").attr("attr-id", d.id);
     $("#admin_edit_package").modal("show");
   }
@@ -2107,14 +2289,14 @@ $(document).ready(function () {
 
   $('#btn_submit').attr('disabled', 'disabled')
 
-  // if (!$("#txt_user_access").val()) {
-  //   $("#txt_user_access").attr("value", "user");
-  //   load_packages();
-  //   change_page("main_page");
-  // } else {
-  //   load_packages();
-  //   change_page("main_page");
-  // }
+  if (!$("#txt_user_access").val()) {
+    $("#txt_user_access").attr("value", "user");
+    load_packages();
+    change_page("main_page");
+  } else {
+    load_packages();
+    change_page("main_page");
+  }
 
   if (!$("#txt_user_id").val()) {
     change_page("main_page");

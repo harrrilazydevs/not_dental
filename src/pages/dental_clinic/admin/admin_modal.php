@@ -245,28 +245,40 @@
                     <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Edit Package</h5>
                     <div class="row">
                         <div class="col-12">
-                            <label for="">Package Name</label>
-                            <input type="text" class="form-control" id="txt_edit_package_name">
 
-                            <label class="mt-2">Price</label>
-                            <input type="text" class="form-control" id="txt_edit_package_price">
+                            <div class="text-center mb-3">
+                                <img src="" id="img_package_preview" class="my-2" style="border-radius:50%;width:300px; height:300px;" alt="">
 
-                            <label class="mt-2">Description</label>
-                            <textarea rows="5" type="text" class="form-control" id="txt_edit_package_description"></textarea>
+                            </div>
 
-                            <label class="mt-2">Package Availability</label>
-                            <select id="txt_edit_package_status" class="form-select">
-                                <option value="OK">Available</option>
-                                <option value="UNAVAILABLE">Not Available</option>
-                            </select>
+                            <form action="post" enctype="multipart/form-data" id="form_edit_package">
+                                <input type="hidden" name="id" id="txt_edit_package_id">
+                                <label for="">Image</label>
+                                <input type="file" class="form-control" name="picture" id="txt_edit_package_picture">
+
+                                <label class="mt-2">Package Name</label>
+                                <input type="text" class="form-control" name="name" id="txt_edit_package_name">
+
+                                <label class="mt-2">Price</label>
+                                <input type="text" class="form-control" name="price" id="txt_edit_package_price">
+
+                                <label class="mt-2">Description</label>
+                                <textarea rows="5" type="text" class="form-control" name="description" id="txt_edit_package_description"></textarea>
+
+                                <label class="mt-2">Package Availability</label>
+                                <select id="txt_edit_package_status" name="status" class="form-select">
+                                    <option value="OK">Available</option>
+                                    <option value="UNAVAILABLE">Not Available</option>
+                                </select>
                         </div>
                     </div>
 
                     <div class="row text-center mt-4 mb-4">
                         <div class="col-12">
-                            <button class="text-white me-4" id="btn_edit_package_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
-                            <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
+                            <button class="text-white me-4" type="submit" id="btn_edit_package_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
+                            <button class="text-white" type="button" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -456,33 +468,41 @@
     <div class=" modal-dialog">
         <div class="modal-content" style="border-radius: 5%;">
             <div class="modal-body text-black">
-                <div class="container" style="border-radius: 5%; border: solid grey 5px;">
-                    <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Add Package</h5>
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="">Package name</label>
-                            <input type="text" class="form-control" id="txt_add_package_name">
+                <form id="form_add_package" enctype="multipart/form-data" method="post">
+                    <div class="container" style="border-radius: 5%; border: solid grey 5px;">
+                        <h5 class="text-center mt-3 mb-6" style="letter-spacing: 2px; font-family: 'Work Sans', sans-serif; font-weight: bold;">Add Package</h5>
+                        <div class="row">
+                            <div class="col-12">
 
-                            <label class="mt-2">Price</label>
-                            <input type="text" class="form-control" id="txt_add_package_price">
+                                <label class="">Image</label>
+                                <input type="file" class="form-control" name="picture" id="txt_add_package_picture">
 
-                            <label class="mt-2">Description</label>
-                            <textarea rows="5" type="text" class="form-control" id="txt_add_package_description"></textarea>
+                                <label class="mt-2">Package name</label>
+                                <input type="text" class="form-control" name="name" id="txt_add_package_name">
 
-                            <label class="mt-2">Status</label>
-                            <select id="txt_add_package_status" class="form-select">
-                                <option value="OK">OK</option>
-                                <option value="UNAVAILABLE">UNAVAILABLE</option>
-                            </select>
+                                <label class="mt-2">Price</label>
+                                <input type="text" class="form-control" name="price" id="txt_add_package_price">
+
+                                <label class="mt-2">Description</label>
+                                <textarea rows="5" type="text" class="form-control" name="description" id="txt_add_package_description"></textarea>
+
+                                <label class="mt-2">Status</label>
+                                <select id="txt_add_package_status" name="status" class="form-select">
+                                    <option value="OK">OK</option>
+                                    <option value="UNAVAILABLE">UNAVAILABLE</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row text-center mt-4 mb-4">
+                            <div class="col-12">
+
+                                <!-- //id="btn_add_package_save" -->
+                                <button class="text-white me-4" type="submit" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
+                                <button class="text-white" type="button" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="row text-center mt-4 mb-4">
-                        <div class="col-12">
-                            <button class="text-white me-4" id="btn_add_package_save" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">SAVE</button>
-                            <button class="text-white" data-bs-dismiss="modal" style="background:#80CEB8; border-radius:5px; border: none; cursor: pointer; font-size: 12px; width: 100px; height: 2rem;">CANCEL</button>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

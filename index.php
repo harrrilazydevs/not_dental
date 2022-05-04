@@ -46,9 +46,15 @@ if (!isset($_SESSION['access_level'])) {
     <script src="src/resources/lib/jquery/jquery.js"></script>
     <script src="src/resources/lib/carousel/carousel.js"></script>
     <script src="src/resources/lib/jsPdf/html2pdf.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+
     <script src="src/resources/lib/chartJs/chart.js"></script>
 
+
 </head>
+
+
 
 <body>
 
@@ -58,10 +64,10 @@ if (!isset($_SESSION['access_level'])) {
                                 }
                                 ?>" id="txt_user_access">
     <input type="hidden" id="txt_user_mobile" value="<?php
-                                if (isset($_SESSION['contact_no'])) {
-                                    echo $_SESSION['contact_no'];
-                                }
-                                ?>" >
+                                                        if (isset($_SESSION['contact_no'])) {
+                                                            echo $_SESSION['contact_no'];
+                                                        }
+                                                        ?>">
 
     <input type="hidden" id="txt_user_id" value="<?php
                                                     if (isset($_SESSION['user_id'])) {

@@ -9,7 +9,8 @@ $q = '
                 price,
                 status,
                 description,
-                b.sms
+                b.sms,
+                picture
         FROM
                 tbl_packages a 
         LEFT JOIN
