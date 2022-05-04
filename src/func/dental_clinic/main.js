@@ -2858,7 +2858,7 @@ $('#btn_send_code').on('click', function () {
 $("#btn_submit").on("click", function (e) {
   e.preventDefault();
 
-  alert(email_is_verified)
+  // alert(email_is_verified)
 
   if (
     $("#txt_sign_up_uid").val() &&
